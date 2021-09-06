@@ -90,6 +90,9 @@ typedef struct s_lodev
 	double planeX;
 	double planeY;
 
+	double moveSpeed;
+	double rotSpeed;
+
 	int		w;
 	int		h;
 

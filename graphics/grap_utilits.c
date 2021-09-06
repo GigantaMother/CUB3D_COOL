@@ -41,11 +41,11 @@ void verLine(t_map *map, int x, int drawStart, int drawEnd, int color)
 	i = 0;
 	while (i < map->spec.r.y)
 	{
-		if (i <= drawStart && i >= drawEnd)
+		if (i >= drawStart && i <= drawEnd)
 		{
 			//write(2, "KEK\n", 4);
 			//my_mlx_pixel_put(&map->grap, x, i, color);
-			my_mlx_pixel_put(&map->grap, 5, i, color);
+			my_mlx_pixel_put(&map->grap, x, i, color);
 		}
 		//my_mlx_pixel_put(&map->grap, x, i, color);
 		i++;

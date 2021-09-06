@@ -6,52 +6,51 @@ int	ft_map_print(t_map *map)
 	
 	for(int x = 0; x < map->lodev.w; x++)
     {
-    	//calculate ray position and direction
-      	double cameraX = 2 * x / (double)map->lodev.w - 1; //x-coordinate in camera space
-      	double rayDirX = map->lodev.dirX + map->lodev.planeX * cameraX;
-      	double rayDirY = map->lodev.dirY + map->lodev.planeY * cameraX;
-      	//which box of the map we're in
-      	int mapX = (int)(map->lodev.posX);
-      	int mapY = (int)(map->lodev.posY);
+		printf("x= %d\n", x);
+		double cameraX = 2 * x / (double)map->lodev.w - 1; //x-coordinate in camera space
+		double rayDirX = map->lodev.dirX + map->lodev.planeX * cameraX;
+		double rayDirY =  map->lodev.dirY + map->lodev.planeY * cameraX;
+
+		int mapX = (int)(map->lodev.posX);
+		int mapY = (int)(map->lodev.posY);
 
 		double sideDistX;
-      	double sideDistY;
+		double sideDistY;
 
-       	//length of ray from one x or y-side to next x or y-side
-      	double deltaDistX = fabs(1 / rayDirX);
-      	double deltaDistY = fabs(1 / rayDirY);
-      	double perpWallDist;
+		double deltaDistX = fabs(1 / rayDirX);
+		double deltaDistY = fabs(1 / rayDirY);
+		double perpWallDist;
 
 		int stepX;
 		int stepY;
 
 		int hit = 0; //was there a wall hit?
 		int side; //was a NS or a EW wall hit?
-		//calculate step and initial sideDist
+
 		if(rayDirX < 0)
 		{
-			stepX = -1;
-			sideDistX = ( map->lodev.posX - mapX) * deltaDistX;
+		stepX = -1;
+		sideDistX = (map->lodev.posX - mapX) * deltaDistX;
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 -  map->lodev.posX) * deltaDistX;
+		stepX = 1;
+		sideDistX = (mapX + 1.0 - map->lodev.posX) * deltaDistX;
 		}
 		if(rayDirY < 0)
 		{
-			stepY = -1;
-			sideDistY = ( map->lodev.posY - mapY) * deltaDistY;
+		stepY = -1;
+		sideDistY = (map->lodev.posY - mapY) * deltaDistY;
 		}
 		else
 		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 -  map->lodev.posY) * deltaDistY;
+		stepY = 1;
+		sideDistY = (mapY + 1.0 - map->lodev.posY) * deltaDistY;
 		}
 
 		while (hit == 0)
-      	{
-       		//jump to next map square, OR in x-direction, OR in y-direction
+		{
+		//jump to next map square, OR in x-direction, OR in y-direction
 			if(sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
@@ -59,51 +58,33 @@ int	ft_map_print(t_map *map)
 				side = 0;
 			}
 			else
-				{
+			{
 				sideDistY += deltaDistY;
 				mapY += stepY;
 				side = 1;
-			}
-        	//Check if ray has hit a wall
-			if(map->field[mapX][mapY] == '1')
-			{
-				//printf("hint error %d \n", x);	
-				hit = 1;
-			}
-      	}
-     	//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-		if(side == 0)
-			perpWallDist = (mapX - map->lodev.posX + (1 - stepX) / 2) / rayDirX;
-		else
-			perpWallDist = (mapY - map->lodev.posY + (1 - stepY) / 2) / rayDirY;
-
-		//Calculate height of line to draw on screen
-		int lineHeight = (int)( map->lodev.h / perpWallDist);
-
-      	//calculate lowest and highest pixel to fill in current stripe
-    	int drawStart = -lineHeight / 2 +  map->lodev.h / 2;
-			// printf("lineHeight  %d\n", map->lodev.posY );
-    	if(drawStart < 0)
-		{
-			drawStart = 0;
 		}
-    	int drawEnd = lineHeight / 2 + map->lodev.h / 2;
-    	if(drawEnd >=  map->lodev.h)
-			drawEnd =  map->lodev.h - 1;
-		
-		//---*-
-		// printf("x= %d\n", x);
+		//printf("hit= %d\n", hit);
 
-		printf ("drawStart=%d ", drawStart);
-		printf ("drawEnd=%d \n", drawEnd);
+		if(map->field[mapX][mapY] == '1') hit = 1; //-------------------------------------------???????????
+		}
+		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
+		if(side == 0) perpWallDist = (mapX -  map->lodev.posX + (1 - stepX) / 2) / rayDirX;
+		else          perpWallDist = (mapY -  map->lodev.posY + (1 - stepY) / 2) / rayDirY;
 
+		int lineHeight = (int)(map->lodev.h / perpWallDist);
+
+		int drawStart = -lineHeight / 2 + map->lodev.h / 2;
+		if(drawStart < 0)drawStart = 0;
+		int drawEnd = lineHeight / 2 + map->lodev.h / 2;
+		if(drawEnd >= map->lodev.h)
+		drawEnd = map->lodev.h - 1;
 		verLine(map, x, drawStart, drawEnd, Gray);
+		//printf("drawStart= %d ", drawStart);
+		//printf("drawEnd= %d\n", drawEnd);
+		//------------------------------------------------------------------------
 
-		//void	square_print(t_map *map, t_coord start, t_coord size, int color);
 
 
-
-		//---
 	}
 	mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
 
@@ -176,10 +157,18 @@ int	key_hook_press(int keycode, t_map *map)
 		// printf("x(до)=%f y(до)=%f\n", map->player.coord.x, map->player.coord.y);
 		// printf("элемент до(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
 
+		/*
 		if (map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x + x_step)] != '1')
 			map->player.coord.x += x_step;
 		if (map->field[(int)(map->player.coord.y + y_step)][(int)(map->player.coord.x)] != '1')
 			map->player.coord.y += y_step;
+		*/
+
+
+		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] == '0') 
+			map->lodev.posX += map->lodev.dirX * map->lodev.moveSpeed;
+		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] == '0')
+			map->lodev.posY += map->lodev.dirY * map->lodev.moveSpeed;
 
 		// printf("x(после)=%f y(после)=%f\n", map->player.coord.x, map->player.coord.y);
 		// printf("элемент после(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
@@ -190,10 +179,18 @@ int	key_hook_press(int keycode, t_map *map)
 		// printf("x(до)=%f y(до)=%f\n", map->player.coord.x, map->player.coord.y);
 		// printf("элемент до(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
 
+		/*
 		if (map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x - x_step)] != '1')
 			map->player.coord.x -= x_step;
 		if (map->field[(int)(map->player.coord.y - y_step)][(int)(map->player.coord.x)] != '1')
 			map->player.coord.y -= y_step;
+		*/
+
+		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] == '0') 
+			map->lodev.posX -= map->lodev.dirX * map->lodev.moveSpeed;
+		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] == '0')
+			map->lodev.posY -= map->lodev.dirY * map->lodev.moveSpeed;
+
 
 		// printf("x(после)=%f y(после)=%f\n", map->player.coord.x, map->player.coord.y);
 		// printf("элемент после(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
@@ -201,17 +198,33 @@ int	key_hook_press(int keycode, t_map *map)
 	// движение вправо/влево
 	if (map->button.right == 1 && map->button.left == 0)
 	{
+		double oldDirX = map->lodev.dirX;
+		map->lodev.dirX = map->lodev.dirX * cos(-map->lodev.rotSpeed) - map->lodev.dirY * sin(-map->lodev.rotSpeed);
+		map->lodev.dirY = oldDirX * sin(-map->lodev.rotSpeed) + map->lodev.dirY * cos(-map->lodev.rotSpeed);
+		double oldPlaneX = map->lodev.planeX;
+		map->lodev.planeX = map->lodev.planeX * cos(-map->lodev.rotSpeed) - map->lodev.planeY * sin(-map->lodev.rotSpeed);
+		map->lodev.planeY = oldPlaneX * sin(-map->lodev.rotSpeed) + map->lodev.planeY * cos(-map->lodev.rotSpeed);
+		/*
 		if (map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x - y_step)] != '1')
 			map->player.coord.x -= y_step;
 		if (map->field[(int)(map->player.coord.y + x_step)][(int)(map->player.coord.x)] != '1')
 			map->player.coord.y += x_step;
+		*/
 	}
 	else if (map->button.left == 1 && map->button.right == 0)
 	{
+		double oldDirX = map->lodev.dirX;
+		map->lodev.dirX = map->lodev.dirX * cos(map->lodev.rotSpeed) - map->lodev.dirY * sin(map->lodev.rotSpeed);
+		map->lodev.dirY = oldDirX * sin(map->lodev.rotSpeed) + map->lodev.dirY * cos(map->lodev.rotSpeed);
+		double oldPlaneX = map->lodev.planeX;
+		map->lodev.planeX = map->lodev.planeX * cos(map->lodev.rotSpeed) - map->lodev.planeY * sin(map->lodev.rotSpeed);
+		map->lodev.planeY = oldPlaneX * sin(map->lodev.rotSpeed) + map->lodev.planeY * cos(map->lodev.rotSpeed);
+		/*
 		if (map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x + y_step)] != '1')
 			map->player.coord.x += y_step;
 		if (map->field[(int)(map->player.coord.y - x_step)][(int)(map->player.coord.x)] != '1')
 			map->player.coord.y -= x_step;
+		*/
 	}
 	// поворот вправо/влево
 	if (map->button.turn_right == 1 && map->button.turn_left == 0)
@@ -225,7 +238,7 @@ int	key_hook_press(int keycode, t_map *map)
 
 	printf("(%f,%f)\n", map->player.coord.x, map->player.coord.y);
 	//-Менять-----------
-	//map_print(map); // старая
+	ft_map_print(map); // старая
 	//------------------
 	return (1);
 }
@@ -282,14 +295,20 @@ int		main_graphics(t_map *map)
 	//map_print(map); // старая версия 
 	//------------------
 	//--------Лодев----
-	map->lodev.posX = 3;
-	map->lodev.posY = 8;
+	map->lodev.posX = map->player.coord.x + 0.5;
+	map->lodev.posY = map->player.coord.y + 0.5;
+
 	map->lodev.dirX = -1.0;
-	map->lodev.dirY = 0.66;
-	map->lodev.w = map->spec.r.x;
-	map->lodev.h = map->spec.r.y;
+	map->lodev.dirY = 0;
+
 	map->lodev.planeX = 0;
 	map->lodev.planeY = 0.66;
+
+	map->lodev.w = map->spec.r.x;
+	map->lodev.h = map->spec.r.y;
+	
+	map->lodev.moveSpeed = 0.11;
+	map->lodev.rotSpeed = 0.11;
 
 	ft_map_print(map);
 
