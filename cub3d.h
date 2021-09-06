@@ -79,6 +79,22 @@ typedef struct s_spec
 	t_color	c;
 }t_spec;
 
+typedef struct s_lodev
+{
+	double posX;
+	double posY;
+
+	double dirX;
+	double dirY;
+
+	double planeX;
+	double planeY;
+
+	int		w;
+	int		h;
+
+} t_lodev;
+
 // структура для графики
 typedef struct s_grap
 {
@@ -133,6 +149,8 @@ typedef struct s_map
 	t_grap		grap;
 	t_button	button;
 	t_player	player;
+
+	t_lodev 	lodev;
 }t_map;
 
 //  функции из файла grap_main.c
@@ -198,5 +216,7 @@ int		error(int e);
 
 //  функции из файла print.c (3)
 void	print_mod(t_map map, int mod);
+
+void verLine(t_map *map, int x, int drawStart, int drawEnd, int color);
 
 #endif

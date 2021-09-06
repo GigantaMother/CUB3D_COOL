@@ -1,5 +1,115 @@
 #include "../cub3d.h"
 
+int	ft_map_print(t_map *map)
+{
+	printf("Hello\n");
+	
+	for(int x = 0; x < map->lodev.w; x++)
+    {
+    	//calculate ray position and direction
+      	double cameraX = 2 * x / (double)map->lodev.w - 1; //x-coordinate in camera space
+      	double rayDirX = map->lodev.dirX + map->lodev.planeX * cameraX;
+      	double rayDirY = map->lodev.dirY + map->lodev.planeY * cameraX;
+      	//which box of the map we're in
+      	int mapX = (int)(map->lodev.posX);
+      	int mapY = (int)(map->lodev.posY);
+
+		double sideDistX;
+      	double sideDistY;
+
+       	//length of ray from one x or y-side to next x or y-side
+      	double deltaDistX = fabs(1 / rayDirX);
+      	double deltaDistY = fabs(1 / rayDirY);
+      	double perpWallDist;
+
+		int stepX;
+		int stepY;
+
+		int hit = 0; //was there a wall hit?
+		int side; //was a NS or a EW wall hit?
+		//calculate step and initial sideDist
+		if(rayDirX < 0)
+		{
+			stepX = -1;
+			sideDistX = ( map->lodev.posX - mapX) * deltaDistX;
+		}
+		else
+		{
+			stepX = 1;
+			sideDistX = (mapX + 1.0 -  map->lodev.posX) * deltaDistX;
+		}
+		if(rayDirY < 0)
+		{
+			stepY = -1;
+			sideDistY = ( map->lodev.posY - mapY) * deltaDistY;
+		}
+		else
+		{
+			stepY = 1;
+			sideDistY = (mapY + 1.0 -  map->lodev.posY) * deltaDistY;
+		}
+
+		while (hit == 0)
+      	{
+       		//jump to next map square, OR in x-direction, OR in y-direction
+			if(sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				mapX += stepX;
+				side = 0;
+			}
+			else
+				{
+				sideDistY += deltaDistY;
+				mapY += stepY;
+				side = 1;
+			}
+        	//Check if ray has hit a wall
+			if(map->field[mapX][mapY] == '1')
+			{
+				//printf("hint error %d \n", x);	
+				hit = 1;
+			}
+      	}
+     	//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
+		if(side == 0)
+			perpWallDist = (mapX - map->lodev.posX + (1 - stepX) / 2) / rayDirX;
+		else
+			perpWallDist = (mapY - map->lodev.posY + (1 - stepY) / 2) / rayDirY;
+
+		//Calculate height of line to draw on screen
+		int lineHeight = (int)( map->lodev.h / perpWallDist);
+
+      	//calculate lowest and highest pixel to fill in current stripe
+    	int drawStart = -lineHeight / 2 +  map->lodev.h / 2;
+			// printf("lineHeight  %d\n", map->lodev.posY );
+    	if(drawStart < 0)
+		{
+			drawStart = 0;
+		}
+    	int drawEnd = lineHeight / 2 + map->lodev.h / 2;
+    	if(drawEnd >=  map->lodev.h)
+			drawEnd =  map->lodev.h - 1;
+		
+		//---
+		// printf("x= %d\n", x);
+
+		printf ("drawStart=%d ", drawStart);
+		printf ("drawEnd=%d \n", drawEnd);
+
+		// verLine(map, x, drawStart, drawEnd, Gray);
+
+		//void	square_print(t_map *map, t_coord start, t_coord size, int color);
+
+
+
+		//---
+	}
+	// mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
+
+	return (0);
+}
+
 //123 left 124 right 
 //126 вверх 125 вниз 
 int	key_hook_press(int keycode, t_map *map)
@@ -115,7 +225,7 @@ int	key_hook_press(int keycode, t_map *map)
 
 	printf("(%f,%f)\n", map->player.coord.x, map->player.coord.y);
 	//-Менять-----------
-	map_print(map);
+	//map_print(map); // старая
 	//------------------
 	return (1);
 }
@@ -169,8 +279,21 @@ int		main_graphics(t_map *map)
 		return (0);
 
 	//-Менять-----------
-	map_print(map);
+	//map_print(map); // старая версия 
 	//------------------
+	//--------Лодев----
+	map->lodev.posX = 22.0;
+	map->lodev.posY = 11.5;
+	map->lodev.dirX = -1.0;
+	map->lodev.dirY = 0.66;
+	map->lodev.w = map->spec.r.x;
+	map->lodev.h = map->spec.r.y;
+	map->lodev.planeX = 0;
+	map->lodev.planeY = 0.66;
+
+	ft_map_print(map);
+
+	//-----------
 
 	mlx_hook(map->grap.win, 2, 1L << 2, key_hook_press, map);
 	mlx_hook(map->grap.win, 3, 1L << 3, key_hook_repress, map); 
