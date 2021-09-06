@@ -91,13 +91,13 @@ int	ft_map_print(t_map *map)
     	if(drawEnd >=  map->lodev.h)
 			drawEnd =  map->lodev.h - 1;
 		
-		//---
+		//---*-
 		// printf("x= %d\n", x);
 
 		printf ("drawStart=%d ", drawStart);
 		printf ("drawEnd=%d \n", drawEnd);
 
-		// verLine(map, x, drawStart, drawEnd, Gray);
+		verLine(map, x, drawStart, drawEnd, Gray);
 
 		//void	square_print(t_map *map, t_coord start, t_coord size, int color);
 
@@ -105,7 +105,7 @@ int	ft_map_print(t_map *map)
 
 		//---
 	}
-	// mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
+	mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
 
 	return (0);
 }
@@ -282,8 +282,8 @@ int		main_graphics(t_map *map)
 	//map_print(map); // старая версия 
 	//------------------
 	//--------Лодев----
-	map->lodev.posX = 22.0;
-	map->lodev.posY = 11.5;
+	map->lodev.posX = 3;
+	map->lodev.posY = 8;
 	map->lodev.dirX = -1.0;
 	map->lodev.dirY = 0.66;
 	map->lodev.w = map->spec.r.x;
