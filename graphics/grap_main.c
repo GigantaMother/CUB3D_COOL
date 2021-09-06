@@ -186,8 +186,12 @@ int	key_hook_press(int keycode, t_map *map)
 			map->player.coord.y -= y_step;
 		*/
 
-		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] == '0') 
+		
+
+		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] == '0')
+		{
 			map->lodev.posX -= map->lodev.dirX * map->lodev.moveSpeed;
+		}
 		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] == '0')
 			map->lodev.posY -= map->lodev.dirY * map->lodev.moveSpeed;
 
@@ -307,8 +311,8 @@ int		main_graphics(t_map *map)
 	map->lodev.w = map->spec.r.x;
 	map->lodev.h = map->spec.r.y;
 	
-	map->lodev.moveSpeed = 0.11;
-	map->lodev.rotSpeed = 0.11;
+	map->lodev.moveSpeed = 0.055;
+	map->lodev.rotSpeed = 0.055;
 
 	ft_map_print(map);
 
