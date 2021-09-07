@@ -42,7 +42,7 @@ static int	check_ident_line_R_x(t_spec *spec, char *line, int *i)
 		if (line[*i] >= '0' && line[*i] <= '9')
 		{
 			spec->r.x = spec->r.x * 10 + (line[*i] - 48);
-			printf("Hello %d\n", spec->r.x);
+			// printf("Hello %d\n", spec->r.x);
 			if (spec->r.x > spec->r_max.x)
 				return (error(11));
 		}

@@ -1,5 +1,77 @@
 #include "../cub3d.h"
 
+int char_in_str(char cr, char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == cr)
+			return 1;
+	}
+	return 0;
+}
+
+int it_is_not_wall(t_map* map, double row, double col)
+{
+	printf("%d %d \n", (int)row, (int)col);
+	if(map->field[(int)row] [(int)col] != 48)
+		return 0;
+	else if(map->field[(int)(row + 0.01)] [(int)(col + 0.01)] != 48)
+		return 0;
+	else if(map->field[(int)(row + 0.01)] [(int)(col)] != 48)
+		return 0;
+	else if(map->field[(int)(row)] [(int)(col + 0.01)] != 48)
+		return 0;
+	else if(map->field[(int)(row - 0.01)] [(int)(col - 0.01)] != 48)
+		return 0;
+	else if(map->field[(int)(row - 0.01)] [(int)(col)] != 48)
+		return 0;
+	else if(map->field[(int)(row)] [(int)(col - 0.01)] != 48)
+		return 0;
+	return (1);
+}
+void	change_player_position(t_map *map, double row, double col)
+{
+	// int	row2;
+	// int	col2;
+
+	// row2 = (int)(map->lodev.posX + 2 * (row - map->lodev.posX));
+	// col2 = (int)(map->lodev.posY + 2 * (col - map->lodev.posY));
+	printf("%f %f\n", row, col);
+	// printf("%d %d \n", row2, col2);
+	// 	// && map->field[(int)map->lodev.posX][col2] != '1' && map->field[col2][(int)map->lodev.posX] != '1')
+	if (it_is_not_wall(map, row, col))
+	{
+		map->lodev.posX = row;
+		map->lodev.posY = col;
+	}
+	else if (it_is_not_wall(map, map->lodev.posY, row))
+	{
+		map->lodev.posX = row;
+	}
+	else if (it_is_not_wall(map, col, map->lodev.posX))
+	{
+		map->lodev.posY = col;
+		
+	}
+}
+
+void move_forward(t_map *map, int flag, double *x, double *y)
+{
+	*x += flag * map->lodev.dirX * (map->lodev.moveSpeed);
+	*y += flag * map->lodev.dirY * (map->lodev.moveSpeed);	
+}
+
+
+void move_side(t_map *map, int flag, double *x, double *y)
+{
+	*y -= flag * map->lodev.dirX * (map->lodev.moveSpeed);
+	*x += flag * map->lodev.dirY * (map->lodev.moveSpeed);
+}
+
+
 int	ft_map_print(t_map *map)
 {
 	printf("Hello\n");
@@ -100,8 +172,8 @@ int	key_hook_press(int keycode, t_map *map)
 	map->grap.addr = mlx_get_data_addr(map->grap.img, &map->grap.bits_per_pixel, &map->grap.line_length,
 								&map->grap.endian); 
 
-	float x_step = cos(map->player.angle) * map->player.speed_moving;
-	float y_step = sin(map->player.angle) * map->player.speed_moving;
+	double testPosX = map->lodev.posX;
+	double testPosY = map->lodev.posY;
 
 	if (keycode == Esc )
 	{
@@ -152,62 +224,13 @@ int	key_hook_press(int keycode, t_map *map)
 
 	// движение вперёд/назад
 	if (map->button.up == 1 && map->button.down == 0)
-	{
-		// printf("--------------------\n");
-		// printf("x(до)=%f y(до)=%f\n", map->player.coord.x, map->player.coord.y);
-		// printf("элемент до(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
-
-		/*
-		if (map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x + x_step)] != '1')
-			map->player.coord.x += x_step;
-		if (map->field[(int)(map->player.coord.y + y_step)][(int)(map->player.coord.x)] != '1')
-			map->player.coord.y += y_step;
-		*/
-
-
-		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] != '1') 
-			map->lodev.posX += map->lodev.dirX * (map->lodev.moveSpeed * 1);
-		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] != '1')
-			map->lodev.posY += map->lodev.dirY * (map->lodev.moveSpeed * 1);
-
-		// printf("x(после)=%f y(после)=%f\n", map->player.coord.x, map->player.coord.y);
-		// printf("элемент после(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
-	}
+		move_forward(map, 1, &testPosX, &testPosY);
 	else if (map->button.down == 1 && map->button.up == 0)
-	{
-		// printf("--------------------\n");
-		// printf("x(до)=%f y(до)=%f\n", map->player.coord.x, map->player.coord.y);
-		// printf("элемент до(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
-
-		/*
-		if (map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x - x_step)] != '1')
-			map->player.coord.x -= x_step;
-		if (map->field[(int)(map->player.coord.y - y_step)][(int)(map->player.coord.x)] != '1')
-			map->player.coord.y -= y_step;
-		*/
-
-		
-
-		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] != '1')
-		{
-			map->lodev.posX -= map->lodev.dirX * (map->lodev.moveSpeed * 1);
-		}
-		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] != '1')
-			map->lodev.posY -= map->lodev.dirY * (map->lodev.moveSpeed * 1);
-
-
-		// printf("x(после)=%f y(после)=%f\n", map->player.coord.x, map->player.coord.y);
-		// printf("элемент после(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
-	}
+		move_forward(map, -1, &testPosX, &testPosY);
 	// движение вправо/влево
 	if (map->button.right == 1 && map->button.left == 0)
 	{
-		double oldDirX = map->lodev.dirX;
-		map->lodev.dirX = map->lodev.dirX * cos(-map->lodev.rotSpeed) - map->lodev.dirY * sin(-map->lodev.rotSpeed);
-		map->lodev.dirY = oldDirX * sin(-map->lodev.rotSpeed) + map->lodev.dirY * cos(-map->lodev.rotSpeed);
-		double oldPlaneX = map->lodev.planeX;
-		map->lodev.planeX = map->lodev.planeX * cos(-map->lodev.rotSpeed) - map->lodev.planeY * sin(-map->lodev.rotSpeed);
-		map->lodev.planeY = oldPlaneX * sin(-map->lodev.rotSpeed) + map->lodev.planeY * cos(-map->lodev.rotSpeed);
+		move_side(map, 1, &testPosX, &testPosY);
 		/*
 		if (map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x - y_step)] != '1')
 			map->player.coord.x -= y_step;
@@ -217,12 +240,7 @@ int	key_hook_press(int keycode, t_map *map)
 	}
 	else if (map->button.left == 1 && map->button.right == 0)
 	{
-		double oldDirX = map->lodev.dirX;
-		map->lodev.dirX = map->lodev.dirX * cos(map->lodev.rotSpeed) - map->lodev.dirY * sin(map->lodev.rotSpeed);
-		map->lodev.dirY = oldDirX * sin(map->lodev.rotSpeed) + map->lodev.dirY * cos(map->lodev.rotSpeed);
-		double oldPlaneX = map->lodev.planeX;
-		map->lodev.planeX = map->lodev.planeX * cos(map->lodev.rotSpeed) - map->lodev.planeY * sin(map->lodev.rotSpeed);
-		map->lodev.planeY = oldPlaneX * sin(map->lodev.rotSpeed) + map->lodev.planeY * cos(map->lodev.rotSpeed);
+			move_side(map, -1, &testPosX, &testPosY);
 		/*
 		if (map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x + y_step)] != '1')
 			map->player.coord.x += y_step;
@@ -233,14 +251,25 @@ int	key_hook_press(int keycode, t_map *map)
 	// поворот вправо/влево
 	if (map->button.turn_right == 1 && map->button.turn_left == 0)
 	{
-		map->player.angle += map->player.speed_turn;
+		double oldDirX = map->lodev.dirX;
+		map->lodev.dirX = map->lodev.dirX * cos(-map->lodev.rotSpeed) - map->lodev.dirY * sin(-map->lodev.rotSpeed);
+		map->lodev.dirY = oldDirX * sin(-map->lodev.rotSpeed) + map->lodev.dirY * cos(-map->lodev.rotSpeed);
+		double oldPlaneX = map->lodev.planeX;
+		map->lodev.planeX = map->lodev.planeX * cos(-map->lodev.rotSpeed) - map->lodev.planeY * sin(-map->lodev.rotSpeed);
+		map->lodev.planeY = oldPlaneX * sin(-map->lodev.rotSpeed) + map->lodev.planeY * cos(-map->lodev.rotSpeed);
 	}
 	else if (map->button.turn_left == 1 && map->button.turn_right == 0)
 	{
-		map->player.angle -= map->player.speed_turn;
+		double oldDirX = map->lodev.dirX;
+		map->lodev.dirX = map->lodev.dirX * cos(map->lodev.rotSpeed) - map->lodev.dirY * sin(map->lodev.rotSpeed);
+		map->lodev.dirY = oldDirX * sin(map->lodev.rotSpeed) + map->lodev.dirY * cos(map->lodev.rotSpeed);
+		double oldPlaneX = map->lodev.planeX;
+		map->lodev.planeX = map->lodev.planeX * cos(map->lodev.rotSpeed) - map->lodev.planeY * sin(map->lodev.rotSpeed);
+		map->lodev.planeY = oldPlaneX * sin(map->lodev.rotSpeed) + map->lodev.planeY * cos(map->lodev.rotSpeed);
 	}
 
-	printf("(%f,%f)\n", map->player.coord.x, map->player.coord.y);
+	// printf("(%f,%f)\n", map->player.coord.x, map->player.coord.y);
+	change_player_position(map, testPosX, testPosY);
 	//-Менять-----------
 	ft_map_print(map); // старая
 	//------------------
