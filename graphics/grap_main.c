@@ -170,7 +170,8 @@ int	ft_map_print(t_map *map)
 
 		//------------------------------------------------------------------------
 		//------------------------------------------------------------------------
-		verLine(map, x, drawStart, drawEnd, Gray); // без текстур
+		verLine_text(map, x, drawStart, drawEnd, Gray); // без текстур
+		//break ;
 		//------------------------------------------------------------------------
 
 		//-----------------------------------------------------------------------
@@ -375,7 +376,7 @@ int		main_graphics(t_map *map)
 	map->lodev.moveSpeed = 0.055;
 	map->lodev.rotSpeed = 0.055;
 
-	map->lodev.wall_no = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick5.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+	map->lodev.wall_no = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick1.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
 	printf("map->lodev.sprites_width= %d\n", map->lodev.sprites_width);
 	printf("map->lodev.sprites_height= %d\n", map->lodev.sprites_height);
 	// map->lodev.wall_so = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick2.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);

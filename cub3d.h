@@ -176,6 +176,7 @@ typedef struct s_map
 
 //  функции из файла grap_main.c
 int		main_graphics(t_map *map);
+void verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color);
 
 //  функции из файла grap_utilits.c
 int		rgb(int t, int r, int g, int b);

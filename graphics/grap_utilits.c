@@ -56,21 +56,30 @@ void verLine(t_map *map, int x, int drawStart, int drawEnd, int color)
 
 void verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color)
 {
+	color++;
 	int i;
 
 	i = 0;
-	while (i < map->spec.r.y)
+	// while (i < map->spec.r.y)
+	// {
+	// 	if (i >= drawStart && i <= drawEnd)
+	// 	{
+	// 		my_mlx_pixel_put(&map->grap, x, i, color);
+	// 	}
+	// 	else if (i < drawStart)
+	// 		my_mlx_pixel_put(&map->grap, x, i, Blue);
+	// 	//my_mlx_pixel_put(&map->grap, x, i, color);
+	// 	i++;
+	// }
+	//Вот так рисуется текстуру вместо цвета
+	for (int w = 0; w < map->spec.r.y; w++)
 	{
-		if (i >= drawStart && i <= drawEnd)
+		if (w >= drawStart && w <= drawEnd)
 		{
-			//write(2, "KEK\n", 4);
-			//my_mlx_pixel_put(&map->grap, x, i, color);
-			my_mlx_pixel_put(&map->grap, x, i, color);
+			my_mlx_pixel_put(&map->grap, x, w, map->lodev.data_no[(w % map->lodev.sprites_width)  * map->lodev.sprites_width + (x % map->lodev.sprites_height)]);
 		}
-		else if (i < drawStart)
-			my_mlx_pixel_put(&map->grap, x, i, Blue);
-		//my_mlx_pixel_put(&map->grap, x, i, color);
-		i++;
+		else if (w < drawStart)
+			my_mlx_pixel_put(&map->grap, x, w, Blue);
 	}
 }
 
