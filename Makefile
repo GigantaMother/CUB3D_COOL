@@ -19,22 +19,39 @@ SRCS := error.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
 
-NAME	=	so_long
+NAME	=	CUB3D
 
-FLAGS	= 					
+INCLUDE = -I./ -I./get_next_line
 
-OBJ		=	$(patsubst %.c, %.o, $(SRCS))
+FRAEMWORKS= -framework OpenGL -framework AppKit
 
+LIBS = libft.a libmlx.a
+
+CFLAGS	= 					
+
+OBJ		=	$(patsubst %.c, %.o,$(SRCS))
+
+%.o:		%.c
+			$(CC) $(CFLAGS) $(INCLUDE) -c -g $< -o $@
 all		:	$(NAME)
 
-$(NAME)	:	$(SRC)
-	gcc $(CFLAGS)  -c $(SRCS)
-	gcc $(FLAGS) $(SRCS) -o -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) -lmx
+$(NAME)	: $(OBJ)
+	$(MAKE) -C ./libft
+	cp libft/libft.a .
+	$(MAKE) -C minilibx_macos/ all
+	cp minilibx_macos/libmlx.a .
+	$(CC) $(CFLAGS) -o $(NAME) $(FLAG) $(OBJ) $(FRAEMWORKS) $(LIBS)
 
-clean	:
-	rm -f $(OBJ)
+clean:
+	rm -rf $(OBJ) $(LIBS)
+	$(MAKE) -C ./minilibx_macos/ clean
+	$(MAKE) -C ./libft clean
 
-fclean	:	clean
-	rm -f $(NAME)
+fclean: clean
+	$(MAKE) -C ./libft fclean
+	rm -rf $(NAME)
 
-.PHONY	:	all clean fclean re
+re:		fclean all
+
+$(NAME)	:	$(OBJ)
+
