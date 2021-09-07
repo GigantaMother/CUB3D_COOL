@@ -15,21 +15,21 @@ int char_in_str(char cr, char *str)
 
 int it_is_not_wall(t_map* map, double row, double col)
 {
-	printf("%d %d \n", (int)row, (int)col);
-	if(map->field[(int)row] [(int)col] != 48)
+	printf("%d %d %c \n", (int)row, (int)col, map->field[(int)row] [(int)col]);
+	if(map->field[(int)row] [(int)col] != '0')
 		return 0;
-	else if(map->field[(int)(row + 0.01)] [(int)(col + 0.01)] != 48)
-		return 0;
-	else if(map->field[(int)(row + 0.01)] [(int)(col)] != 48)
-		return 0;
-	else if(map->field[(int)(row)] [(int)(col + 0.01)] != 48)
-		return 0;
-	else if(map->field[(int)(row - 0.01)] [(int)(col - 0.01)] != 48)
-		return 0;
-	else if(map->field[(int)(row - 0.01)] [(int)(col)] != 48)
-		return 0;
-	else if(map->field[(int)(row)] [(int)(col - 0.01)] != 48)
-		return 0;
+	// else if(map->field[(int)(row + 0.01)] [(int)(col + 0.01)] != '0')
+	// 	return 0;
+	// else if(map->field[(int)(row + 0.01)] [(int)(col)] != 48)
+	// 	return 0;
+	// else if(map->field[(int)(row)] [(int)(col + 0.01)] != 48)
+	// 	return 0;
+	// else if(map->field[(int)(row - 0.01)] [(int)(col - 0.01)] != 48)
+	// 	return 0;
+	// else if(map->field[(int)(row - 0.01)] [(int)(col)] != 48)
+	// 	return 0;
+	// else if(map->field[(int)(row)] [(int)(col - 0.01)] != 48)
+	// 	return 0;
 	return (1);
 }
 void	change_player_position(t_map *map, double row, double col)
@@ -386,7 +386,7 @@ int		main_graphics(t_map *map)
 	//--------Лодев----
 	map->lodev.posX = map->player.coord.y;
 	map->lodev.posY = map->player.coord.x;
-
+	map->field[(int)map->lodev.posX][(int)map->lodev.posY] = '0';
 	map->lodev.dirX = -1.0;
 	map->lodev.dirY = 0;
 
