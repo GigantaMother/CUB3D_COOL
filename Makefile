@@ -4,7 +4,6 @@ SRCS := error.c \
 		cub3d.c \
 		graphics/grap_init.c \
 		graphics/grap_main.c \
-		graphics/grap_my_test.c \
 		graphics/grap_utilits.c \
 		parcer/check_border.c \
 		parcer/check_file.c \

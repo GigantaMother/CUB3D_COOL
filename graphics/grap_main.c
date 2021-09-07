@@ -169,8 +169,30 @@ int	ft_map_print(t_map *map)
 		 double texPos = (drawStart -  map->lodev.h / 2 + lineHeight / 2) * step;		
 
 		//------------------------------------------------------------------------
-		//------------------------------------------------------------------------
-		verLine_text(map, x, drawStart, drawEnd, Gray); // без текстур
+				// while (i < map->spec.r.y)
+				// {
+				// 	if (i >= drawStart && i <= drawEnd)
+				// 	{
+				// 		my_mlx_pixel_put(&map->grap, x, i, color);
+				// 	}
+				// 	else if (i < drawStart)
+				// 		my_mlx_pixel_put(&map->grap, x, i, Blue);
+				// 	//my_mlx_pixel_put(&map->grap, x, i, color);
+				// 	i++;
+				// }
+				//Вот так рисуется текстуру вместо цвета
+				for (int w = 0; w < map->spec.r.y; w++)
+				{
+					if (w >= drawStart && w <= drawEnd)
+					{
+						int texY = (int)texPos & (map->lodev.sprites_height - 1);
+						texPos += step;
+						my_mlx_pixel_put(&map->grap, x, w, map->lodev.data_no[texY * map->lodev.sprites_height + texX]);
+					}
+					else if (w < drawStart)
+						my_mlx_pixel_put(&map->grap, x, w, Blue);
+				}
+		// verLine_text(map, x, drawStart, drawEnd, Gray); // без текстур
 		//break ;
 		//------------------------------------------------------------------------
 
