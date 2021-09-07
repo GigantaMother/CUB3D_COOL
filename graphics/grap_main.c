@@ -18,18 +18,18 @@ int it_is_not_wall(t_map* map, double row, double col)
 	printf("%d %d %c \n", (int)row, (int)col, map->field[(int)row] [(int)col]);
 	if(map->field[(int)row] [(int)col] != '0')
 		return 0;
-	// else if(map->field[(int)(row + 0.01)] [(int)(col + 0.01)] != '0')
-	// 	return 0;
-	// else if(map->field[(int)(row + 0.01)] [(int)(col)] != 48)
-	// 	return 0;
-	// else if(map->field[(int)(row)] [(int)(col + 0.01)] != 48)
-	// 	return 0;
-	// else if(map->field[(int)(row - 0.01)] [(int)(col - 0.01)] != 48)
-	// 	return 0;
-	// else if(map->field[(int)(row - 0.01)] [(int)(col)] != 48)
-	// 	return 0;
-	// else if(map->field[(int)(row)] [(int)(col - 0.01)] != 48)
-	// 	return 0;
+	else if(map->field[(int)(row + 0.11)] [(int)(col + 0.11)] != '0')
+		return 0;
+	else if(map->field[(int)(row + 0.11)] [(int)(col)] != 48)
+		return 0;
+	else if(map->field[(int)(row)] [(int)(col + 0.11)] != 48)
+		return 0;
+	else if(map->field[(int)(row - 0.11)] [(int)(col - 0.11)] != 48)
+		return 0;
+	else if(map->field[(int)(row - 0.11)] [(int)(col)] != 48)
+		return 0;
+	else if(map->field[(int)(row)] [(int)(col - 0.11)] != 48)
+		return 0;
 	return (1);
 }
 void	change_player_position(t_map *map, double row, double col)
@@ -47,11 +47,11 @@ void	change_player_position(t_map *map, double row, double col)
 		map->lodev.posX = row;
 		map->lodev.posY = col;
 	}
-	else if (it_is_not_wall(map, map->lodev.posY, row))
+	else if (it_is_not_wall(map, map->lodev.posX, col))
 	{
 		map->lodev.posX = row;
 	}
-	else if (it_is_not_wall(map, col, map->lodev.posX))
+	else if (it_is_not_wall(map, row, map->lodev.posY))
 	{
 		map->lodev.posY = col;
 		
