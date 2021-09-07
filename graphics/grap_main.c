@@ -204,6 +204,52 @@ int	ft_map_print(t_map *map)
 	return (0);
 }
 
+void	ft_mini_map(t_map *map)
+{
+	printf("map->spec.r.x= %d\n", map->spec.r.x);
+	printf("map->spec.r.y= %d\n", map->spec.r.y);
+
+	printf("line= %d\n", map->line); // по вертикали 
+	printf("column= %d\n", map->column); // по горизонтали
+
+	int cell_1 =  map->spec.r.x / map->column;
+	int cell_2 =  map->spec.r.y /  map->line;
+	int cell = min(cell_1, cell_2);
+
+	printf("cell_1= %d\n", cell_1);
+	printf("cell_2= %d\n", cell_2);
+	printf("cell= %d\n", cell);
+	
+	for (int i = 0; i < map->line; i++)
+	{
+		for (int j = 0; j < map->column; j++)
+		{
+			//printf("%c", map->field[i][j]);
+			t_coord	start;
+			start.y = i * 10;
+			start.x = j * 10;
+			t_coord size;
+			size.x = 10;
+			size.y = 10;
+			if (map->field[i][j] == '1')
+				square_print(map, start, size, Red);
+			else if (map->field[i][j] == '0')
+				square_print(map, start, size, White);
+			else if (map->field[i][j] == 'W')
+				square_print(map, start, size, Blue);
+		}
+		//printf("\n");
+	}
+	// t_coord	start;
+	// start.x = ((int)map->lodev.posY * 16);
+	// start.y = ((int)map->lodev.posX * 16);
+
+	// t_coord size;
+	// size.x = 10;
+	// size.y = 10;
+	// square_print(map, start, size, Lime);
+}
+
 int	key_hook_press(int keycode, t_map *map)
 {
 	mlx_destroy_image(map->grap.mlx, map->grap.img);
@@ -308,6 +354,7 @@ int		main_graphics(t_map *map)
 	init_text(map);
 	//-----------
 	ft_map_print(map);
+	ft_mini_map(map);
 	mlx_hook(map->grap.win, 2, 1L << 2, key_hook_press, map);
 	mlx_hook(map->grap.win, 3, 1L << 3, key_hook_repress, map); 
 	mlx_hook(map->grap.win, 17, 1L << 2, key_hook_close, map);
