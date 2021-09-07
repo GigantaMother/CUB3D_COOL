@@ -143,20 +143,6 @@ typedef struct s_button
 	int	turn_left;
 }t_button;
 
-//структура для игрока
-typedef struct s_player
-{
-	t_coord_f	coord; // координата персонажа
-	float		angle;  // куда смотрит персонаж
-	float		speed_moving; // скорость движения
-	float		speed_turn; // скорость поворота
-	float		angle_view; // угол обзора
-	int			ray_count; // кол-во лучей
-	int			cell_size; // размер 1 ячейки мини карты
-	int			cell_zoom; // часть экрана, которую может занимать миникарта
-	int			cell_ray;  // во сколько раз лучей на мини карте будет меньше, чем в 3д
-}t_player;
-
 // структура для карты
 typedef struct s_map
 {
@@ -169,12 +155,12 @@ typedef struct s_map
 	t_spec		spec;
 	t_grap		grap;
 	t_button	button;
-	t_player	player;
 
 	t_lodev 	lodev;
 }t_map;
 
 //  функции из файла grap_main.c
+void init_text(t_map *map);
 int		main_graphics(t_map *map);
 void verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color);
 

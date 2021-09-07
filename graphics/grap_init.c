@@ -43,32 +43,46 @@ static void	init_player(t_map *map)
 		j = 0;
 		while (j < map->column)
 		{
-			if (map->field[i][j] == 'E' || map->field[i][j] == 'N' ||
-				map->field[i][j] == 'W' || map->field[i][j] == 'S')
+			if (map->field[i][j] == 'E' || map->field[i][j] == 'N' || map->field[i][j] == 'W' || map->field[i][j] == 'S')
 			{
-				map->player.coord.x = j + 0.5;
-				map->player.coord.y = i + 0.5;
-				if (map->field[i][j] == 'E')
-					map->player.angle = 0;
-				else if (map->field[i][j] == 'N')
-					map->player.angle = 3 * M_PI / 2;
-				else if (map->field[i][j] == 'W')
-					map->player.angle = M_PI;
-				else if (map->field[i][j] == 'S')
-					map->player.angle = M_PI / 2;
+				map->lodev.posX = i + 0.5;
+				map->lodev.posY = j + 0.5;
+
+				map->lodev.dirX = -1.0;
+				map->lodev.dirY = 0;
+
+				map->lodev.planeX = 0;
+				map->lodev.planeY = 0.66;
 			}
 			j++;
 		}
 		i++;
 	}
 	//-------
-	map->player.speed_moving = 0.101;
-	map->player.speed_turn = M_PI / 60;
-	map->player.angle_view = M_PI / 3;
-	map->player.ray_count = map->spec.r.x;
-	map->player.cell_zoom = 3;
-	map->player.cell_size = min(map->spec.r.x / map->player.cell_zoom / map->line,
-								map->spec.r.y / map->player.cell_zoom / map->column);
-	map->player.cell_ray = map->player.ray_count / map->player.cell_zoom / 5;
-	//printf("\nx_cell=%d, y_cell= %d\n", x_cell, y_cell);
+	map->lodev.w = map->spec.r.x;
+	map->lodev.h = map->spec.r.y;
+	
+	map->lodev.moveSpeed = 0.1;
+	map->lodev.rotSpeed = 0.1;
+	//--------
+}
+
+void init_text(t_map *map)
+{
+	map->field[(int)map->lodev.posX][(int)map->lodev.posY] = '0';
+
+	map->lodev.wall_no = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick1.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+	printf("map->lodev.sprites_width= %d\n", map->lodev.sprites_width);
+	printf("map->lodev.sprites_height= %d\n", map->lodev.sprites_height);
+	// map->lodev.wall_so = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick2.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+	// map->lodev.wall_we = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick3.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+	// map->lodev.wall_ea = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick4.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+
+	map->lodev.size_line = 0;
+	map->lodev.endlan = 0;
+	map->lodev.bpp = 32;
+	map->lodev.data_no = (int *)mlx_get_data_addr(map->lodev.wall_no, &map->lodev.bpp, &map->lodev.size_line, &map->lodev.endlan);
+	printf("map->lodev.bpp= %d\n", map->lodev.bpp);
+	printf("map->lodev.size_line= %d\n", map->lodev.size_line);
+	printf("map->lodev.endlan= %d\n",map->lodev.endlan);
 }
