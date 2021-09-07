@@ -47,6 +47,8 @@ void verLine(t_map *map, int x, int drawStart, int drawEnd, int color)
 			//my_mlx_pixel_put(&map->grap, x, i, color);
 			my_mlx_pixel_put(&map->grap, x, i, color);
 		}
+		else if (i < drawStart)
+			my_mlx_pixel_put(&map->grap, x, i, Blue);
 		//my_mlx_pixel_put(&map->grap, x, i, color);
 		i++;
 	}

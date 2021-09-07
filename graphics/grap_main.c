@@ -6,7 +6,7 @@ int	ft_map_print(t_map *map)
 	
 	for(int x = 0; x < map->lodev.w; x++)
     {
-		printf("x= %d\n", x);
+		//printf("x= %d\n", x);
 		double cameraX = 2 * x / (double)map->lodev.w - 1; //x-coordinate in camera space
 		double rayDirX = map->lodev.dirX + map->lodev.planeX * cameraX;
 		double rayDirY =  map->lodev.dirY + map->lodev.planeY * cameraX;
@@ -165,10 +165,10 @@ int	key_hook_press(int keycode, t_map *map)
 		*/
 
 
-		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] == '0') 
-			map->lodev.posX += map->lodev.dirX * map->lodev.moveSpeed;
-		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] == '0')
-			map->lodev.posY += map->lodev.dirY * map->lodev.moveSpeed;
+		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] != '1') 
+			map->lodev.posX += map->lodev.dirX * (map->lodev.moveSpeed * 1);
+		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] != '1')
+			map->lodev.posY += map->lodev.dirY * (map->lodev.moveSpeed * 1);
 
 		// printf("x(после)=%f y(после)=%f\n", map->player.coord.x, map->player.coord.y);
 		// printf("элемент после(%c)\n", map->field[(int)(map->player.coord.y)][(int)(map->player.coord.x)]);
@@ -188,12 +188,12 @@ int	key_hook_press(int keycode, t_map *map)
 
 		
 
-		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] == '0')
+		if(map->field[(int)(map->lodev.posX + map->lodev.dirX * map->lodev.moveSpeed)][(int)(map->lodev.posY)] != '1')
 		{
-			map->lodev.posX -= map->lodev.dirX * map->lodev.moveSpeed;
+			map->lodev.posX -= map->lodev.dirX * (map->lodev.moveSpeed * 1);
 		}
-		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] == '0')
-			map->lodev.posY -= map->lodev.dirY * map->lodev.moveSpeed;
+		if(map->field[(int)map->lodev.posX][(int)(map->lodev.posY + map->lodev.dirY * map->lodev.moveSpeed)] != '1')
+			map->lodev.posY -= map->lodev.dirY * (map->lodev.moveSpeed * 1);
 
 
 		// printf("x(после)=%f y(после)=%f\n", map->player.coord.x, map->player.coord.y);
@@ -299,8 +299,8 @@ int		main_graphics(t_map *map)
 	//map_print(map); // старая версия 
 	//------------------
 	//--------Лодев----
-	map->lodev.posX = map->player.coord.x + 0.5;
-	map->lodev.posY = map->player.coord.y + 0.5;
+	map->lodev.posX = map->player.coord.y;
+	map->lodev.posY = map->player.coord.x;
 
 	map->lodev.dirX = -1.0;
 	map->lodev.dirY = 0;
