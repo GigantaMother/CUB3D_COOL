@@ -373,8 +373,8 @@ int		main_graphics(t_map *map)
 	map->lodev.w = map->spec.r.x;
 	map->lodev.h = map->spec.r.y;
 	
-	map->lodev.moveSpeed = 0.055;
-	map->lodev.rotSpeed = 0.055;
+	map->lodev.moveSpeed = 0.1;
+	map->lodev.rotSpeed = 0.1;
 
 	map->lodev.wall_no = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick1.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
 	printf("map->lodev.sprites_width= %d\n", map->lodev.sprites_width);
