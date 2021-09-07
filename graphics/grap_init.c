@@ -48,11 +48,38 @@ static void	init_player(t_map *map)
 				map->lodev.posX = i + 0.5;
 				map->lodev.posY = j + 0.5;
 
-				map->lodev.dirX = -1.0;
-				map->lodev.dirY = 0;
+				if (map->field[i][j] == 'N') // север
+				{
+					map->lodev.dirX = -1.0;
+					map->lodev.dirY = 0;
 
-				map->lodev.planeX = 0;
-				map->lodev.planeY = 0.66;
+					map->lodev.planeX = 0;
+					map->lodev.planeY = 0.66;
+				}
+				if (map->field[i][j] == 'S') // юг
+				{
+					map->lodev.dirX = 1.0;
+					map->lodev.dirY = 0;
+
+					map->lodev.planeX = 0;
+					map->lodev.planeY = -0.66;
+				}
+				if (map->field[i][j] == 'E') // восток
+				{
+					map->lodev.dirX = 0;
+					map->lodev.dirY = 1;
+
+					map->lodev.planeX = 0.66;
+					map->lodev.planeY = 0;
+				}
+				if (map->field[i][j] == 'W') // запад
+				{
+					map->lodev.dirX = 0;
+					map->lodev.dirY = -1;
+
+					map->lodev.planeX = -0.66;
+					map->lodev.planeY = 0;
+				}
 			}
 			j++;
 		}

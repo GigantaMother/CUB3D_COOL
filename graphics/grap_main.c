@@ -191,6 +191,14 @@ int	ft_map_print(t_map *map)
 		//------------------------------------------------------------------------
 
 	}
+
+	printf("map->lodev.dirX= %f ", map->lodev.dirX);
+	printf("map->lodev.dirY= %f\n", map->lodev.dirY);
+
+	printf("map->lodev.planeX= %f ", map->lodev.planeX);
+	printf("map->lodev.planeY= %f\n", map->lodev.planeY);
+	
+
 	mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
 
 	return (0);
