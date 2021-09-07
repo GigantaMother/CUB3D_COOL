@@ -170,32 +170,8 @@ int	ft_map_print(t_map *map)
 
 		//------------------------------------------------------------------------
 		//------------------------------------------------------------------------
-		//verLine(map, x, drawStart, drawEnd, Gray); // без текстур
+		verLine(map, x, drawStart, drawEnd, Gray); // без текстур
 		//------------------------------------------------------------------------
-		int i;
-
-		i = 0;
-		while (i < map->spec.r.y)
-		{
-			//int texY = map->lodev.sprites_width;
-        	texPos += step;
-
-			if (i >= drawStart && i <= drawEnd)
-			{
-				int texY = map->lodev.sprites_width;
-        		texPos += step;
-
-				//write(2, "KEK\n", 4);
-				//my_mlx_pixel_put(&map->grap, x, i, color);
-				my_mlx_pixel_put(&map->grap, x, i, map->lodev.sprites_width * texY + texX);
-			}
-			else if (i < drawStart)
-			{
-				my_mlx_pixel_put(&map->grap, x, i, Blue);
-			}
-			//my_mlx_pixel_put(&map->grap, x, i, color);
-			i++;
-		}
 
 		//-----------------------------------------------------------------------
 		// Вывод текстуры по пикселям
