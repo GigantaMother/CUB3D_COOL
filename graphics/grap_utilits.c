@@ -79,7 +79,9 @@ void verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color)
 			my_mlx_pixel_put(&map->grap, x, w, map->lodev.data_no[(w % map->lodev.sprites_width)  * map->lodev.sprites_width + (x % map->lodev.sprites_height)]);
 		}
 		else if (w < drawStart)
-			my_mlx_pixel_put(&map->grap, x, w, Blue);
+			my_mlx_pixel_put(&map->grap, x, w, map->c);
+		else if (w > drawEnd)
+			my_mlx_pixel_put(&map->grap, x, w, map->f);
 	}
 }
 

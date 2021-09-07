@@ -31,7 +31,8 @@ enum e_button {
 	Left = 0,
 	Turn_right = 124,
 	Turn_left = 123,
-	M = 46
+	M = 46,
+	F = 3
 };
 // структура для координат чего либо(целые числа)
 typedef struct s_coord
@@ -143,6 +144,16 @@ typedef struct s_button
 	int	turn_left;
 }t_button;
 
+typedef struct s_mini_map
+{
+	int color_wall;
+	int color_empty;
+	int color_player;
+	int size;
+	int mode;
+
+}t_mini_map;
+
 // структура для карты
 typedef struct s_map
 {
@@ -152,9 +163,12 @@ typedef struct s_map
 	int			line_max;
 	int			column;
 	int			column_max;
+	int 		f;
+	int 		c;
 	t_spec		spec;
 	t_grap		grap;
 	t_button	button;
+	t_mini_map  mini_map;
 
 	t_lodev 	lodev;
 }t_map;
@@ -163,6 +177,7 @@ typedef struct s_map
 void init_text(t_map *map);
 int		main_graphics(t_map *map);
 void verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color);
+void init_mini_map(t_map *map);
 
 //  функции из файла grap_utilits.c
 int		rgb(int t, int r, int g, int b);

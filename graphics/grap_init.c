@@ -15,6 +15,10 @@ int	init_grap(t_map *map)
 								&map->grap.endian);
 	init_buttom(&map->button);
 	init_player(map);
+	
+	map->f = rgb(1, map->spec.f.r, map->spec.f.g, map->spec.f.b);
+	map->c = rgb(1, map->spec.c.r, map->spec.c.g, map->spec.c.b);
+
 	return (1);
 }
 
@@ -27,6 +31,15 @@ int	init_grap(t_map *map)
 	button->left = 0;
 	button->turn_right = 0;
 	button->turn_left = 0;
+}
+
+void init_mini_map(t_map *map)
+{
+	map->mini_map.color_wall = Red;
+	map->mini_map.color_empty = White;
+	map->mini_map.color_player = Lime;
+	map->mini_map.size = 2;
+	map->mini_map.mode = 0;
 }
 
 // начальные данные игрока

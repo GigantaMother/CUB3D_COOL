@@ -71,7 +71,6 @@ void move_side(t_map *map, int flag, double *x, double *y)
 	*x += flag * map->lodev.dirY * (map->lodev.moveSpeed);
 }
 
-
 int	ft_map_print(t_map *map)
 {
 	printf("Hello\n");
@@ -101,28 +100,28 @@ int	ft_map_print(t_map *map)
 
 		if(rayDirX < 0)
 		{
-		stepX = -1;
-		sideDistX = (map->lodev.posX - mapX) * deltaDistX;
+			stepX = -1;
+			sideDistX = (map->lodev.posX - mapX) * deltaDistX;
 		}
 		else
 		{
-		stepX = 1;
-		sideDistX = (mapX + 1.0 - map->lodev.posX) * deltaDistX;
+			stepX = 1;
+			sideDistX = (mapX + 1.0 - map->lodev.posX) * deltaDistX;
 		}
 		if(rayDirY < 0)
 		{
-		stepY = -1;
-		sideDistY = (map->lodev.posY - mapY) * deltaDistY;
+			stepY = -1;
+			sideDistY = (map->lodev.posY - mapY) * deltaDistY;
 		}
 		else
 		{
-		stepY = 1;
-		sideDistY = (mapY + 1.0 - map->lodev.posY) * deltaDistY;
+			stepY = 1;
+			sideDistY = (mapY + 1.0 - map->lodev.posY) * deltaDistY;
 		}
 
 		while (hit == 0)
 		{
-		//jump to next map square, OR in x-direction, OR in y-direction
+			//jump to next map square, OR in x-direction, OR in y-direction
 			if(sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
@@ -134,39 +133,45 @@ int	ft_map_print(t_map *map)
 				sideDistY += deltaDistY;
 				mapY += stepY;
 				side = 1;
-		}
+			}
 		//printf("hit= %d\n", hit);
 
-		if(map->field[mapX][mapY] == '1') hit = 1; //-------------------------------------------???????????
+			if(map->field[mapX][mapY] == '1')
+				hit = 1; //-------------------------------------------???????????
 		}
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-		if(side == 0) perpWallDist = (mapX -  map->lodev.posX + (1 - stepX) / 2) / rayDirX;
-		else          perpWallDist = (mapY -  map->lodev.posY + (1 - stepY) / 2) / rayDirY;
+		if(side == 0)
+			perpWallDist = (mapX -  map->lodev.posX + (1 - stepX) / 2) / rayDirX;
+		else
+			perpWallDist = (mapY -  map->lodev.posY + (1 - stepY) / 2) / rayDirY;
 
 		int lineHeight = (int)(map->lodev.h / perpWallDist);
 
 		int drawStart = -lineHeight / 2 + map->lodev.h / 2;
-		if(drawStart < 0)drawStart = 0;
+		if(drawStart < 0)
+			drawStart = 0;
 		int drawEnd = lineHeight / 2 + map->lodev.h / 2;
 		if(drawEnd >= map->lodev.h)
-		drawEnd = map->lodev.h - 1;
+			drawEnd = map->lodev.h - 1;
 		//------------------------------------------------------------------------
 		//------------------------------------------------------------------------
 
 		double wallX; //где именно была пробита стена
 		if (side == 0)
 			wallX = map->lodev.posY + perpWallDist * rayDirY;
-      	else
+		else
 			wallX = map->lodev.posX + perpWallDist * rayDirX;
 		wallX = wallX - (int)(wallX);
-		 // координата x на текстуре
+		// координата x на текстуре
 		//printf("WallX= %f\n", wallX);
 		int texX = (int)(wallX * (double)(map->lodev.sprites_width));
-		if(side == 0 && rayDirX > 0) texX = map->lodev.sprites_width - texX - 1;
-      	if(side == 1 && rayDirY < 0) texX = map->lodev.sprites_width - texX - 1;
+		if(side == 0 && rayDirX > 0)
+			texX = map->lodev.sprites_width - texX - 1;
+		if(side == 1 && rayDirY < 0)
+			texX = map->lodev.sprites_width - texX - 1;
 		
-		 double step = 1.0 *  map->lodev.sprites_height / lineHeight;
-		 double texPos = (drawStart -  map->lodev.h / 2 + lineHeight / 2) * step;		
+		double step = 1.0 *  map->lodev.sprites_height / lineHeight;
+		double texPos = (drawStart -  map->lodev.h / 2 + lineHeight / 2) * step;		
 
 		//------------------------------------------------------------------------
 				// while (i < map->spec.r.y)
@@ -181,19 +186,20 @@ int	ft_map_print(t_map *map)
 				// 	i++;
 				// }
 				//Вот так рисуется текстуру вместо цвета
-				for (int w = 0; w < map->spec.r.y; w++)
-				{
-					if (w >= drawStart && w <= drawEnd)
-					{
-						int texY = (int)texPos & (map->lodev.sprites_height - 1);
-						texPos += step;
-						my_mlx_pixel_put(&map->grap, x, w, map->lodev.data_no[texY * map->lodev.sprites_height + texX]);
-					}
-					else if (w < drawStart)
-						my_mlx_pixel_put(&map->grap, x, w, Blue);
-				}
+		for (int w = 0; w < map->spec.r.y; w++)
+		{
+			if (w >= drawStart && w <= drawEnd)
+			{
+				int texY = (int)texPos & (map->lodev.sprites_height - 1);
+				texPos += step;
+				my_mlx_pixel_put(&map->grap, x, w, map->lodev.data_no[texY * map->lodev.sprites_height + texX]);
+			}
+			else if (w < drawStart)
+				my_mlx_pixel_put(&map->grap, x, w, map->c);
+			else if (w > drawEnd)
+				my_mlx_pixel_put(&map->grap, x, w, map->f);
+		}
 		// verLine_text(map, x, drawStart, drawEnd, Gray); // без текстур
-		//break ;
 		//------------------------------------------------------------------------
 
 		//-----------------------------------------------------------------------
@@ -219,57 +225,67 @@ int	ft_map_print(t_map *map)
 
 	printf("map->lodev.planeX= %f ", map->lodev.planeX);
 	printf("map->lodev.planeY= %f\n", map->lodev.planeY);
-	
 
 	mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
 
 	return (0);
 }
 
+/*
+printf("map->spec.r.x= %d\n", map->spec.r.x);
+printf("map->spec.r.y= %d\n", map->spec.r.y);
+printf("line= %d\n", map->line); // по вертикали 
+printf("column= %d\n", map->column); // по горизонтали
+printf("cell_1= %d\n", cell_1);
+printf("cell_2= %d\n", cell_2);
+printf("cell= %d\n", cell);
+printf("map->lodev.posX= %d\n", (int)map->lodev.posX);
+printf("map->lodev.posY= %d\n", (int)map->lodev.posY);
+*/
 void	ft_mini_map(t_map *map)
 {
-	printf("map->spec.r.x= %d\n", map->spec.r.x);
-	printf("map->spec.r.y= %d\n", map->spec.r.y);
+	if (map->mini_map.size == 0)
+		return ;
+	int cell = min(map->spec.r.x / map->column / map->mini_map.size,
+					map->spec.r.y /  map->line / map->mini_map.size);
 
-	printf("line= %d\n", map->line); // по вертикали 
-	printf("column= %d\n", map->column); // по горизонтали
+	t_coord	start;
+	t_coord size;
+	size.x = cell;
+	size.y = cell;
 
-	int cell_1 =  map->spec.r.x / map->column;
-	int cell_2 =  map->spec.r.y /  map->line;
-	int cell = min(cell_1, cell_2);
-
-	printf("cell_1= %d\n", cell_1);
-	printf("cell_2= %d\n", cell_2);
-	printf("cell= %d\n", cell);
-	
 	for (int i = 0; i < map->line; i++)
 	{
 		for (int j = 0; j < map->column; j++)
 		{
-			//printf("%c", map->field[i][j]);
-			t_coord	start;
-			start.y = i * 10;
-			start.x = j * 10;
-			t_coord size;
-			size.x = 10;
-			size.y = 10;
-			if (map->field[i][j] == '1')
-				square_print(map, start, size, Red);
-			else if (map->field[i][j] == '0')
-				square_print(map, start, size, White);
-			else if (map->field[i][j] == 'W')
-				square_print(map, start, size, Blue);
-		}
-		//printf("\n");
-	}
-	// t_coord	start;
-	// start.x = ((int)map->lodev.posY * 16);
-	// start.y = ((int)map->lodev.posX * 16);
+			start.y = i * cell;
+			start.x = j * cell;
 
-	// t_coord size;
-	// size.x = 10;
-	// size.y = 10;
-	// square_print(map, start, size, Lime);
+			if (map->mini_map.mode == 0)
+			{
+				if (map->field[i][j] == '1')
+					square_print(map, start, size, map->mini_map.color_wall);
+				else if (map->field[i][j] == '0')
+					square_print(map, start, size, map->mini_map.color_empty);
+			}
+			else if (map->mini_map.mode == 1)
+			{
+				if (map->field[i][j] == '1')
+					square_print(map, start, size, map->mini_map.color_wall);
+			}
+			else if (map->mini_map.mode == 2)
+			{
+				if (map->field[i][j] == '0')
+					square_print(map, start, size, map->mini_map.color_empty);
+			}
+		}
+	}
+	start.x = (map->lodev.posY - 0.5) * cell + cell/4;
+	start.y = (map->lodev.posX - 0.5) * cell + cell/4;
+	size.x = cell/2;
+	size.y = cell/2;
+	square_print(map, start, size, map->mini_map.color_player);
+	//-------------------------------------------------------------------------------
 }
 
 int	key_hook_press(int keycode, t_map *map)
@@ -301,7 +317,19 @@ int	key_hook_press(int keycode, t_map *map)
 		map->button.turn_left = 1;
 	else if (keycode == M)
 	{
-		//printf("Режим миникарты\n");
+		if (map->mini_map.size == 4)
+			map->mini_map.size = 0;
+		else
+			map->mini_map.size++;
+		printf("Режим миникарты size\n");
+	}
+	else if (keycode == F)
+	{
+		if (map->mini_map.mode == 2)
+			map->mini_map.mode = 0;
+		else
+			map->mini_map.mode++;
+		printf("Режим миникарты mode\n");
 	}
 	else
 		printf("Неизвестная клавиша %d\n", keycode);
@@ -339,6 +367,7 @@ int	key_hook_press(int keycode, t_map *map)
 	change_player_position(map, testPosX, testPosY);
 	//-Менять-----------
 	ft_map_print(map); // старая
+	ft_mini_map(map);
 	//------------------
 	return (1);
 }
@@ -374,6 +403,7 @@ int		main_graphics(t_map *map)
 
 	//-----------
 	init_text(map);
+	init_mini_map(map);
 	//-----------
 	ft_map_print(map);
 	ft_mini_map(map);
