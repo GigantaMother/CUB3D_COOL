@@ -1,8 +1,7 @@
 R  320 300
 
 NO    textures/brick1.xpm
-
-SO   textures/brick10.xpm
+SO   textures/brick2.xpm
 WE  textures/brick3.xpm  
 EA textures/brick4.xpm
 
