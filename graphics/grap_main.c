@@ -78,12 +78,68 @@ int	ft_map_print(t_map *map)
 		int drawEnd = lineHeight / 2 + map->lodev.h / 2;
 		if(drawEnd >= map->lodev.h)
 		drawEnd = map->lodev.h - 1;
-		verLine(map, x, drawStart, drawEnd, Gray);
+		//------------------------------------------------------------------------
+		//------------------------------------------------------------------------
+
+		double wallX; //где именно была пробита стена
+		if (side == 0)
+			wallX = map->lodev.posY + perpWallDist * rayDirY;
+      	else
+			wallX = map->lodev.posX + perpWallDist * rayDirX;
+		wallX = wallX - (int)(wallX);
+		 // координата x на текстуре
+		//printf("WallX= %f\n", wallX);
+		int texX = (int)(wallX * (double)(map->lodev.sprites_width));
+		if(side == 0 && rayDirX > 0) texX = map->lodev.sprites_width - texX - 1;
+      	if(side == 1 && rayDirY < 0) texX = map->lodev.sprites_width - texX - 1;
+		
+		 double step = 1.0 *  map->lodev.sprites_height / lineHeight;
+		 double texPos = (drawStart -  map->lodev.h / 2 + lineHeight / 2) * step;		
+
+		//------------------------------------------------------------------------
+		//------------------------------------------------------------------------
+		//verLine(map, x, drawStart, drawEnd, Gray); // без текстур
+		//------------------------------------------------------------------------
+		int i;
+
+		i = 0;
+		while (i < map->spec.r.y)
+		{
+			//int texY = map->lodev.sprites_width;
+        	texPos += step;
+
+			if (i >= drawStart && i <= drawEnd)
+			{
+				int texY = map->lodev.sprites_width;
+        		texPos += step;
+
+				//write(2, "KEK\n", 4);
+				//my_mlx_pixel_put(&map->grap, x, i, color);
+				my_mlx_pixel_put(&map->grap, x, i, map->lodev.sprites_width * texY + texX);
+			}
+			else if (i < drawStart)
+			{
+				my_mlx_pixel_put(&map->grap, x, i, Blue);
+			}
+			//my_mlx_pixel_put(&map->grap, x, i, color);
+			i++;
+		}
+
+		//-----------------------------------------------------------------------
+		// Вывод текстуры по пикселям
+		/*
+		for (int i = 0; i < 60; i++)
+		{
+			for (int j = 0; j < 60; j++)
+			{
+				my_mlx_pixel_put(&map->grap, (i + 100), (j + 100), map->lodev.data_no[i * map->lodev.sprites_width + j]);
+			}
+		}
+		*/
+
 		//printf("drawStart= %d ", drawStart);
 		//printf("drawEnd= %d\n", drawEnd);
 		//------------------------------------------------------------------------
-
-
 
 	}
 	mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
@@ -313,6 +369,22 @@ int		main_graphics(t_map *map)
 	
 	map->lodev.moveSpeed = 0.055;
 	map->lodev.rotSpeed = 0.055;
+
+	map->lodev.wall_no = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick5.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+	printf("map->lodev.sprites_width= %d\n", map->lodev.sprites_width);
+	printf("map->lodev.sprites_height= %d\n", map->lodev.sprites_height);
+	// map->lodev.wall_so = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick2.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+	// map->lodev.wall_we = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick3.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+	// map->lodev.wall_ea = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick4.xpm", &map->lodev.sprites_width, &map->lodev.sprites_height);
+
+	map->lodev.size_line = 0;
+	map->lodev.endlan = 0;
+	map->lodev.bpp = 32;
+	map->lodev.data_no = (int *)mlx_get_data_addr(map->lodev.wall_no, &map->lodev.bpp, &map->lodev.size_line, &map->lodev.endlan);
+	printf("map->lodev.bpp= %d\n", map->lodev.bpp);
+	printf("map->lodev.size_line= %d\n", map->lodev.size_line);
+	printf("map->lodev.endlan= %d\n",map->lodev.endlan);
+
 
 	ft_map_print(map);
 
