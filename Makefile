@@ -39,7 +39,7 @@ $(NAME)	: $(OBJ)
 	cp libft/libft.a .
 	$(MAKE) -C minilibx_macos/ all
 	cp minilibx_macos/libmlx.a .
-	$(CC) $(CFLAGS) -o $(NAME) $(FLAG) $(OBJ) $(FRAEMWORKS) $(LIBS)
+	$(CC) $(CFLAGS) -g -o $(NAME) $(FLAG) $(OBJ) $(FRAEMWORKS) $(LIBS)
 
 clean:
 	rm -rf $(OBJ) $(LIBS)

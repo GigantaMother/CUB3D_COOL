@@ -13,24 +13,22 @@ int char_in_str(char cr, char *str)
 	return 0;
 }
 
-int numOfTextures(int side, int stepY, int stepX)
+int numOfText(int side, int stepY, int stepX)
 {
-	// if (side == 1)
-    // {
-    //   if (stepY == -1)
-    //     return 0;//запад
-    //   else
-    //     color = 0x7FFFD4; //восток
-    // }
-    // else
-    // {
-    //   if (stepX == -1)
-    //     return 0;// север DarkBlue
-    //   else
-    //     return 1; //юг Lime
-
- //   }
- return(0);
+	if (side == 1)
+    {
+      if (stepY == -1)
+        return WE;
+      else
+        return EA;
+    }
+    else
+    {
+      if (stepX == -1)
+        return NO;
+      else
+        return SO;
+    }
 }
 
 int it_is_not_wall(t_map* map, double row, double col)
@@ -221,27 +219,30 @@ int	ft_map_print(t_map *map)
     //   else
     //     color = 0x00FF00; //юг Lime
     // }
+		// int numText = numOfText(side, stepY, stepX);
+		int numText = 0;
 		for (int w = 0; w < map->spec.r.y; w++)
 		{
-			//int numOfTextures = NumOfText();
+			printf("%d numText\n", numText);
 			if (w >= drawStart && w <= drawEnd)
 			{
-				int texY = (int)texPos & (map->text[0].sprites_height - 1);
+				int texY = (int)texPos & (map->text[numText].sprites_height - 1);
 				texPos += step;
-				my_mlx_pixel_put(&map->grap, x, w, map->text[0].data[texY * map->text[0].sprites_height + texX]);
+				my_mlx_pixel_put(&map->grap, x, w, map->text[numText].data[texY * map->text[numText].sprites_height + texX]);
 			}
 			else if (w < drawStart)
 				my_mlx_pixel_put(&map->grap, x, w, map->c);
 			else if (w > drawEnd)
 				my_mlx_pixel_put(&map->grap, x, w, map->f);
 		}
+		// printf("Kek\n");
 	}
 
-	printf("map->lodev.dirX= %f ", map->lodev.dirX);
-	printf("map->lodev.dirY= %f\n", map->lodev.dirY);
+	// printf("map->lodev.dirX= %f ", map->lodev.dirX);
+	// printf("map->lodev.dirY= %f\n", map->lodev.dirY);
 
-	printf("map->lodev.planeX= %f ", map->lodev.planeX);
-	printf("map->lodev.planeY= %f\n", map->lodev.planeY);
+	// printf("map->lodev.planeX= %f ", map->lodev.planeX);
+	// printf("map->lodev.planeY= %f\n", map->lodev.planeY);
 
 	mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
 
