@@ -39,22 +39,36 @@ void	init_mini_map(t_map *map)
 	map->mini_map.mode = 0;
 }
 
+/*
+	printf("%s\n", map->spec.no_way);
+	printf("%s\n", map->spec.so_way);
+	printf("%s\n", map->spec.we_way);
+	printf("%s\n", map->spec.ea_way);
+*/
 void	init_text(t_map *map)
 {
-	int	i;
-
-	i = 0;
 	map->field[(int)map->lodev.posX][(int)map->lodev.posY] = '0';
 	map->text = malloc(sizeof(t_text) * 4);
 	if (map->text == NULL)
 		error(36);
-	while (i < 4)
-	{
-		map->text[i].wall = mlx_xpm_file_to_image(map->grap.mlx, \
-		"textures/brick1.xpm", &map->text[i].sprites_width, \
-		&map->text[i].sprites_height);
-		map->text[i].data = (int *)mlx_get_data_addr(map->text[i].wall, \
-		&map->text[i].bpp, &map->text[i].size_line, &map->text[i].endlan);
-		i++;
-	}
+	map->text[0].wall = mlx_xpm_file_to_image(map->grap.mlx, \
+		map->spec.no_way, &map->text[0].sprites_width, \
+		&map->text[0].sprites_height);
+	map->text[0].data = (int *)mlx_get_data_addr(map->text[0].wall, \
+		&map->text[0].bpp, &map->text[0].size_line, &map->text[0].endlan);
+	map->text[1].wall = mlx_xpm_file_to_image(map->grap.mlx, \
+		 map->spec.so_way, &map->text[1].sprites_width, \
+		&map->text[1].sprites_height);
+	map->text[1].data = (int *)mlx_get_data_addr(map->text[1].wall, \
+		&map->text[1].bpp, &map->text[1].size_line, &map->text[1].endlan);
+	map->text[2].wall = mlx_xpm_file_to_image(map->grap.mlx, \
+		map->spec.we_way, &map->text[2].sprites_width, \
+		&map->text[2].sprites_height);
+	map->text[2].data = (int *)mlx_get_data_addr(map->text[2].wall, \
+		&map->text[2].bpp, &map->text[2].size_line, &map->text[2].endlan);
+	map->text[3].wall = mlx_xpm_file_to_image(map->grap.mlx, \
+		map->spec.ea_way, &map->text[3].sprites_width, \
+		&map->text[3].sprites_height);
+	map->text[3].data = (int *)mlx_get_data_addr(map->text[3].wall, \
+		&map->text[3].bpp, &map->text[3].size_line, &map->text[3].endlan);
 }

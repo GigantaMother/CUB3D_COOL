@@ -18,11 +18,15 @@ int	check_ident(t_spec *spec, int fd)
 		if (check_ident_line(spec, line) == 0)
 			return (0);
 		if (check_ident_all(*spec) == 1)
+		{
+			free(line);
 			return (1);
+		}
 		if (check_ident_double(*spec) == 0)
 			return (0);
 		free(line);
 	}
+	free(line);
 	if (check_ident_all(*spec) == 0)
 		return (error(6));
 	return (1);
@@ -38,13 +42,13 @@ static int	check_ident_line(t_spec *spec, char *line)
 	else if (ft_strncmp(line, "R ", 2) == 0)
 		return (check_ident_line_R(spec, line));
 	else if (ft_strncmp(line, "NO ", 3) == 0)
-		return (check_ident_line_text(&spec->flag_no, &spec->no, line));
+		return (check_id_line(&spec->flag_no, &spec->no, line, &spec->no_way));
 	else if (ft_strncmp(line, "SO ", 3) == 0)
-		return (check_ident_line_text(&spec->flag_so, &spec->so, line));
+		return (check_id_line(&spec->flag_so, &spec->so, line, &spec->so_way));
 	else if (ft_strncmp(line, "WE ", 3) == 0)
-		return (check_ident_line_text(&spec->flag_we, &spec->we, line));
+		return (check_id_line(&spec->flag_we, &spec->we, line, &spec->we_way));
 	else if (ft_strncmp(line, "EA ", 3) == 0)
-		return (check_ident_line_text(&spec->flag_ea, &spec->ea, line));
+		return (check_id_line(&spec->flag_ea, &spec->ea, line, &spec->ea_way));
 	else if (ft_strncmp(line, "F  ", 2) == 0)
 		return (check_ident_line_color(&spec->flag_f, &spec->f, line));
 	else if (ft_strncmp(line, "C  ", 2) == 0)
@@ -80,4 +84,17 @@ static int	check_ident_double(t_spec spec)
 		|| spec.flag_c > 1)
 		return (error(10));
 	return (1);
+}
+
+void	ft_check_copy(char *line, char **way, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		(*way)[i] = line[i];
+		i++;
+	}
+	(*way)[i] = '\0';
 }

@@ -68,14 +68,23 @@ typedef struct s_spec
 	t_coord	r;
 	t_coord	r_min;
 	t_coord	r_max;
+	
 	int		flag_no;
 	int		no;
+	char 	*no_way;
+
 	int		flag_so;
 	int		so;
+	char 	*so_way;
+
 	int		flag_we;
 	int		we;
+	char 	*we_way;
+
 	int		flag_ea;
 	int		ea;
+	char 	*ea_way;
+
 	int		flag_s;
 	int		s;
 	int		flag_f;
@@ -143,6 +152,7 @@ typedef struct s_mini_map
 	int	color_player;
 	int	size;
 	int	mode;
+	int cell;
 
 }t_mini_map;
 
@@ -165,7 +175,16 @@ typedef struct s_map
 	t_lodev		lodev;
 }t_map;
 
+void	ft_check_copy(char *line, char **way, int len);
+int		key_hook_close(int keycode, t_map *map);
+int		ft_map_print(t_map *map);
+void	move_forward(t_map *map, int flag, double *x, double *y);
+void	move_side(t_map *map, int flag, double *x, double *y);
+void	change_player_position(t_map *map, double row, double col);
+int		key_hook_press(int keycode, t_map *map);
+int		key_hook_repress(int keycode, t_map *map);
 //  функции из файла grap_main.c
+void	ft_mini_map(t_map *map);
 void	init_text(t_map *map);
 int		main_graphics(t_map *map);
 //void	verLine_text(t_map *map, int x, int drawStart, int drawEnd);
@@ -206,8 +225,9 @@ int		check_ident(t_spec *spec, int fd);
 
 // функции из файла check_spec_line.c (5)
 int		check_ident_line_R(t_spec *spec, char *line);
-int		check_ident_line_text(int *flag, int *texture, char *line);
-
+//-------------------------------------------------------------------------
+int		check_id_line(int *flag, int *texture, char *line, char **way);
+//-------------------------------------------------------------------------
 // функции из файла check_spec_color.c (3)
 int		check_ident_line_color(int *flag, t_color *color, char *line);
 

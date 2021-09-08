@@ -17,10 +17,12 @@ int	check_map(t_map *map)
 		ret = get_next_line(map->fd, &line);
 		if (ft_strlen(line) != 0)
 			break ;
+		free(line);
 		map->spec.count_line++;
 	}
 	if (check_map_help(map, &player, line, ret) == 0)
 		return (0);
+	free(line);
 	if (player == 0)
 		return (error(25));
 	if (map->line < 3 || map->column < 3)
@@ -40,6 +42,7 @@ static int	check_map_help(t_map *map, int *player, char *line, int ret)
 		if (*player > 1)
 			return (error(21));
 		ret = get_next_line(map->fd, &line);
+		free(line);
 	}
 	if (ft_strlen(line) != 0)
 	{
@@ -51,6 +54,7 @@ static int	check_map_help(t_map *map, int *player, char *line, int ret)
 		ret = get_next_line(map->fd, &line);
 		if (ft_strlen(line) != 0)
 			return (error(26));
+		free(line);
 	}
 	return (1);
 }

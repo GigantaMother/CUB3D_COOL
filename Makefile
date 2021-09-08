@@ -2,9 +2,12 @@ CC = gcc
 
 SRCS := error.c \
 		cub3d.c \
-		graphics/grap_init.c \
 		graphics/grap_init_player.c \
+		graphics/grap_init.c \
+		graphics/grap_key_help.c \
+		graphics/grap_key.c \
 		graphics/grap_main.c \
+		graphics/grap_minimap.c \
 		graphics/grap_utilits.c \
 		parcer/check_border.c \
 		parcer/check_file.c \
