@@ -39,12 +39,6 @@ void	init_mini_map(t_map *map)
 	map->mini_map.mode = 0;
 }
 
-/*
-	printf("%s\n", map->spec.no_way);
-	printf("%s\n", map->spec.so_way);
-	printf("%s\n", map->spec.we_way);
-	printf("%s\n", map->spec.ea_way);
-*/
 void	init_text(t_map *map)
 {
 	map->field[(int)map->lodev.posX][(int)map->lodev.posY] = '0';

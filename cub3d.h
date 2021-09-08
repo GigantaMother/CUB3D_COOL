@@ -10,10 +10,10 @@
 # include <stdio.h>
 # include <math.h>
 
-#define WE 2
-#define SO 1
-#define NO 0
-#define EA 3
+# define WE 2
+# define SO 1
+# define NO 0
+# define EA 3
 // перечисление для цветов
 enum e_color {
 	White = 16777215,
@@ -68,23 +68,18 @@ typedef struct s_spec
 	t_coord	r;
 	t_coord	r_min;
 	t_coord	r_max;
-	
 	int		flag_no;
 	int		no;
-	char 	*no_way;
-
+	char	*no_way;
 	int		flag_so;
 	int		so;
-	char 	*so_way;
-
+	char	*so_way;
 	int		flag_we;
 	int		we;
-	char 	*we_way;
-
+	char	*we_way;
 	int		flag_ea;
 	int		ea;
-	char 	*ea_way;
-
+	char	*ea_way;
 	int		flag_s;
 	int		s;
 	int		flag_f;
@@ -152,8 +147,7 @@ typedef struct s_mini_map
 	int	color_player;
 	int	size;
 	int	mode;
-	int cell;
-
+	int	cell;
 }t_mini_map;
 
 // структура для карты
