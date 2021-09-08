@@ -10,6 +10,10 @@
 # include <stdio.h>
 # include <math.h>
 
+#define WE 2
+#define SO 1
+#define NO 0
+#define EA 3
 // перечисление для цветов
 enum e_color {
 	White = 16777215,
