@@ -50,6 +50,7 @@ int it_is_not_wall(t_map* map, double row, double col)
 		return 0;
 	return (1);
 }
+
 void	change_player_position(t_map *map, double row, double col)
 {
 	// int	row2;
@@ -72,7 +73,6 @@ void	change_player_position(t_map *map, double row, double col)
 	else if (it_is_not_wall(map, row, map->lodev.posY))
 	{
 		map->lodev.posY = col;
-		
 	}
 }
 
@@ -92,11 +92,9 @@ void move_side(t_map *map, int flag, double *x, double *y)
 int	ft_map_print(t_map *map)
 {
 	printf("Hello\n");
-	
 	for(int x = 0; x < map->lodev.w; x++)
     {
-		//printf("x= %d\n", x);
-		double cameraX = 2 * x / (double)map->lodev.w - 1; //x-coordinate in camera space
+		double cameraX = 2 * x / (double)map->lodev.w - 1;
 		double rayDirX = map->lodev.dirX + map->lodev.planeX * cameraX;
 		double rayDirY =  map->lodev.dirY + map->lodev.planeY * cameraX;
 
@@ -113,9 +111,8 @@ int	ft_map_print(t_map *map)
 		int stepX;
 		int stepY;
 
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-
+		int hit = 0;
+		int side;
 		if(rayDirX < 0)
 		{
 			stepX = -1;
@@ -136,10 +133,8 @@ int	ft_map_print(t_map *map)
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - map->lodev.posY) * deltaDistY;
 		}
-
 		while (hit == 0)
 		{
-			//jump to next map square, OR in x-direction, OR in y-direction
 			if(sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
@@ -152,12 +147,9 @@ int	ft_map_print(t_map *map)
 				mapY += stepY;
 				side = 1;
 			}
-		//printf("hit= %d\n", hit);
-
 			if(map->field[mapX][mapY] == '1')
-				hit = 1; //-------------------------------------------???????????
+				hit = 1;
 		}
-		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
 		if(side == 0)
 			perpWallDist = (mapX -  map->lodev.posX + (1 - stepX) / 2) / rayDirX;
 		else
@@ -173,8 +165,7 @@ int	ft_map_print(t_map *map)
 			drawEnd = map->lodev.h - 1;
 		//------------------------------------------------------------------------
 		//------------------------------------------------------------------------
-
-		double wallX; //где именно была пробита стена
+		double wallX;
 		if (side == 0)
 			wallX = map->lodev.posY + perpWallDist * rayDirY;
 		else
@@ -236,15 +227,11 @@ int	ft_map_print(t_map *map)
 		}
 		// printf("Kek\n");
 	}
-
 	// printf("map->lodev.dirX= %f ", map->lodev.dirX);
 	// printf("map->lodev.dirY= %f\n", map->lodev.dirY);
-
 	// printf("map->lodev.planeX= %f ", map->lodev.planeX);
 	// printf("map->lodev.planeY= %f\n", map->lodev.planeY);
-
 	mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
-
 	return (0);
 }
 
@@ -320,17 +307,17 @@ int	key_hook_press(int keycode, t_map *map)
 		mlx_destroy_window(map->grap.mlx, map->grap.win);
 		exit (0);
 	}
-	else if (keycode == Up && map->button.up == 0) //printf("Вверх нажато\n");
+	else if (keycode == Up && map->button.up == 0)
 		map->button.up = 1;
-	else if (keycode == Down && map->button.down == 0) //printf("Вниз нажато\n");
+	else if (keycode == Down && map->button.down == 0)
 		map->button.down = 1;
-	else if (keycode == Right && map->button.right == 0) //printf("Вправо нажато\n");
+	else if (keycode == Right && map->button.right == 0)
 		map->button.right = 1;
-	else if (keycode == Left && map->button.left == 0) //printf("Влево нажато\n");
+	else if (keycode == Left && map->button.left == 0)
 		map->button.left = 1;
-	else if (keycode == Turn_right && map->button.turn_right == 0) //printf("Поворот вправо нажато\n");
+	else if (keycode == Turn_right && map->button.turn_right == 0)
 		map->button.turn_right = 1;
-	else if (keycode == Turn_left && map->button.turn_left == 0) //printf("Поворот влево нажато\n");
+	else if (keycode == Turn_left && map->button.turn_left == 0)
 		map->button.turn_left = 1;
 	else if (keycode == M)
 	{
@@ -351,17 +338,14 @@ int	key_hook_press(int keycode, t_map *map)
 	else
 		printf("Неизвестная клавиша %d\n", keycode);
 
-	// движение вперёд/назад
 	if (map->button.up == 1 && map->button.down == 0)
 		move_forward(map, 1, &testPosX, &testPosY);
 	else if (map->button.down == 1 && map->button.up == 0)
 		move_forward(map, -1, &testPosX, &testPosY);
-	// движение вправо/влево
 	if (map->button.right == 1 && map->button.left == 0)
 		move_side(map, 1, &testPosX, &testPosY);
 	else if (map->button.left == 1 && map->button.right == 0)
 		move_side(map, -1, &testPosX, &testPosY);
-	// поворот вправо/влево
 	if (map->button.turn_right == 1 && map->button.turn_left == 0)
 	{
 		double oldDirX = map->lodev.dirX;
@@ -382,28 +366,25 @@ int	key_hook_press(int keycode, t_map *map)
 	}
 
 	change_player_position(map, testPosX, testPosY);
-	//-Менять-----------
-	ft_map_print(map); // старая
+	ft_map_print(map);
 	ft_mini_map(map);
-	//------------------
 	return (1);
 }
 
 int	key_hook_repress(int keycode, t_map *map)
 {
-	if (keycode == Up && map->button.up == 1) //printf("Вверх отжато\n");
+	if (keycode == Up && map->button.up == 1)
 		map->button.up = 0;
-	else if (keycode == Down && map->button.down == 1) //printf("Вниз отжато\n");
+	else if (keycode == Down && map->button.down == 1)
 		map->button.down = 0;
-	else if (keycode == Right && map->button.right == 1) //printf("Вправо отжато\n");
+	else if (keycode == Right && map->button.right == 1)
 		map->button.right = 0;
-	else if (keycode == Left && map->button.left == 1) //printf("Влево отжато\n");
+	else if (keycode == Left && map->button.left == 1)
 		map->button.left = 0;
-	else if (keycode == Turn_right && map->button.turn_right == 1) //printf("Поворот вправо отжато\n");
+	else if (keycode == Turn_right && map->button.turn_right == 1)
 		map->button.turn_right = 0;
-	else if (keycode == Turn_left && map->button.turn_left == 1) //printf("Поворот влево отжато\n");
+	else if (keycode == Turn_left && map->button.turn_left == 1)
 		map->button.turn_left = 0;
-
 	return (1);
 }
 
@@ -413,22 +394,17 @@ int key_hook_close(int keycode, t_map *map)
 	exit (0);
 }
 
-int		main_graphics(t_map *map)
+int	main_graphics(t_map *map)
 {
 	if (init_grap(map) == 0)
 		return (0);
-
-	//-----------
 	init_text(map);
 	init_mini_map(map);
-	//-----------
 	ft_map_print(map);
 	ft_mini_map(map);
 	mlx_hook(map->grap.win, 2, 1L << 2, key_hook_press, map);
 	mlx_hook(map->grap.win, 3, 1L << 3, key_hook_repress, map); 
 	mlx_hook(map->grap.win, 17, 1L << 2, key_hook_close, map);
 	mlx_loop(map->grap.mlx);
-
-
 	return (1);
 }

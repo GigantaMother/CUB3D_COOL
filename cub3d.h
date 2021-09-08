@@ -168,8 +168,9 @@ typedef struct s_map
 //  функции из файла grap_main.c
 void	init_text(t_map *map);
 int		main_graphics(t_map *map);
-void	verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color);
+//void	verLine_text(t_map *map, int x, int drawStart, int drawEnd);
 void	init_mini_map(t_map *map);
+void	init_player(t_map *map);
 
 //  функции из файла grap_utilits.c
 int		rgb(int t, int r, int g, int b);
@@ -229,7 +230,6 @@ int		error(int e);
 
 //  функции из файла print.c (3)
 void	print_mod(t_map map, int mod);
-
-void	verLine(t_map *map, int x, int drawStart, int drawEnd, int color);
+//void	verLine(t_map *map, int x, int drawStart, int drawEnd, int color);
 
 #endif

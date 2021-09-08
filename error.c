@@ -50,9 +50,11 @@ static void	error_1_10(int e)
 static void	error_11_20(int e)
 {
 	if (e == 11)
-		printf("Cпецификатора R.x слишком большой\n");
+		printf("Cпецификатора R.x слишком большой \
+		повторная инициализация цвета\n");
 	else if (e == 12)
-		printf("Cпецификатора R.y слишком большой\n");
+		printf("Cпецификатора R.y слишком большой \
+		повторная инициализация цвета\n");
 	else if (e == 13)
 		printf("Cпецификатора R.x слишком маленький/не задан\n");
 	else if (e == 14)
@@ -109,7 +111,7 @@ static void	error_31_40(int e)
 	else if (e == 35)
 		printf("В конце инициализации текстуры лишнии символы\n");
 	else if (e == 36)
-		printf("\n");
+		printf("malloc error\n");
 	else if (e == 37)
 		printf("\n");
 	else if (e == 38)

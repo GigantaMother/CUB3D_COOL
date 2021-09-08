@@ -3,6 +3,7 @@ CC = gcc
 SRCS := error.c \
 		cub3d.c \
 		graphics/grap_init.c \
+		graphics/grap_init_player.c \
 		graphics/grap_main.c \
 		graphics/grap_utilits.c \
 		parcer/check_border.c \
