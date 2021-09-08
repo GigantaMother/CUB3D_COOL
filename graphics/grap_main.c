@@ -53,14 +53,6 @@ int it_is_not_wall(t_map* map, double row, double col)
 
 void	change_player_position(t_map *map, double row, double col)
 {
-	// int	row2;
-	// int	col2;
-
-	// row2 = (int)(map->lodev.posX + 2 * (row - map->lodev.posX));
-	// col2 = (int)(map->lodev.posY + 2 * (col - map->lodev.posY));
-	// printf("%f %f\n", row, col);
-	// printf("%d %d \n", row2, col2);
-	// 	// && map->field[(int)map->lodev.posX][col2] != '1' && map->field[col2][(int)map->lodev.posX] != '1')
 	if (it_is_not_wall(map, row, col))
 	{
 		map->lodev.posX = row;
@@ -82,7 +74,6 @@ void move_forward(t_map *map, int flag, double *x, double *y)
 	*y += flag * map->lodev.dirY * (map->lodev.moveSpeed);	
 }
 
-
 void move_side(t_map *map, int flag, double *x, double *y)
 {
 	*y -= flag * map->lodev.dirX * (map->lodev.moveSpeed);
@@ -91,7 +82,6 @@ void move_side(t_map *map, int flag, double *x, double *y)
 
 int	ft_map_print(t_map *map)
 {
-	printf("Hello\n");
 	for(int x = 0; x < map->lodev.w; x++)
     {
 		double cameraX = 2 * x / (double)map->lodev.w - 1;
@@ -235,17 +225,6 @@ int	ft_map_print(t_map *map)
 	return (0);
 }
 
-/*
-printf("map->spec.r.x= %d\n", map->spec.r.x);
-printf("map->spec.r.y= %d\n", map->spec.r.y);
-printf("line= %d\n", map->line); // по вертикали 
-printf("column= %d\n", map->column); // по горизонтали
-printf("cell_1= %d\n", cell_1);
-printf("cell_2= %d\n", cell_2);
-printf("cell= %d\n", cell);
-printf("map->lodev.posX= %d\n", (int)map->lodev.posX);
-printf("map->lodev.posY= %d\n", (int)map->lodev.posY);
-*/
 void	ft_mini_map(t_map *map)
 {
 	if (map->mini_map.size == 0)
@@ -289,7 +268,6 @@ void	ft_mini_map(t_map *map)
 	size.x = cell/2;
 	size.y = cell/2;
 	square_print(map, start, size, map->mini_map.color_player);
-	//-------------------------------------------------------------------------------
 }
 
 int	key_hook_press(int keycode, t_map *map)
@@ -364,7 +342,6 @@ int	key_hook_press(int keycode, t_map *map)
 		map->lodev.planeX = map->lodev.planeX * cos(map->lodev.rotSpeed) - map->lodev.planeY * sin(map->lodev.rotSpeed);
 		map->lodev.planeY = oldPlaneX * sin(map->lodev.rotSpeed) + map->lodev.planeY * cos(map->lodev.rotSpeed);
 	}
-
 	change_player_position(map, testPosX, testPosY);
 	ft_map_print(map);
 	ft_mini_map(map);
