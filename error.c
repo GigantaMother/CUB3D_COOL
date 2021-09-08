@@ -113,9 +113,9 @@ static void	error_31_40(int e)
 	else if (e == 36)
 		printf("malloc error\n");
 	else if (e == 37)
-		printf("\n");
+		printf("mlx_xpm_file_to_image error\n");
 	else if (e == 38)
-		printf("\n");
+		printf("mlx_new_image error\n");
 	else if (e == 39)
 		printf("\n");
 	else if (e == 40)

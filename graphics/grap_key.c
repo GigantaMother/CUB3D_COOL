@@ -12,6 +12,8 @@ int	key_hook_press(int keycode, t_map *map)
 
 	mlx_destroy_image(map->grap.mlx, map->grap.img);
 	map->grap.img = mlx_new_image(map->grap.mlx, map->spec.r.x, map->spec.r.y);
+	if (map->grap.img == NULL)
+		error(38);
 	map->grap.addr = mlx_get_data_addr(map->grap.img, \
 	&map->grap.bits_per_pixel, &map->grap.line_length, &map->grap.endian);
 	testPosX = map->lodev.posX;
@@ -29,7 +31,6 @@ int	key_hook_press(int keycode, t_map *map)
 	key_hook_press_turn_l(map);
 	change_player_position(map, testPosX, testPosY);
 	ft_map_print(map);
-	ft_mini_map(map);
 	return (1);
 }
 

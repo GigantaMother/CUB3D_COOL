@@ -221,6 +221,7 @@ int	ft_map_print(t_map *map)
 	// printf("map->lodev.dirY= %f\n", map->lodev.dirY);
 	// printf("map->lodev.planeX= %f ", map->lodev.planeX);
 	// printf("map->lodev.planeY= %f\n", map->lodev.planeY);
+	ft_mini_map(map);
 	mlx_put_image_to_window(map->grap.mlx, map->grap.win, map->grap.img, 0, 0);
 	return (0);
 }
@@ -232,7 +233,6 @@ int	main_graphics(t_map *map)
 	init_text(map);
 	init_mini_map(map);
 	ft_map_print(map);
-	ft_mini_map(map);
 	mlx_hook(map->grap.win, 2, 1L << 2, key_hook_press, map);
 	mlx_hook(map->grap.win, 3, 1L << 3, key_hook_repress, map); 
 	mlx_hook(map->grap.win, 17, 1L << 2, key_hook_close, map);
