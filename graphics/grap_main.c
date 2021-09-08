@@ -13,6 +13,24 @@ int char_in_str(char cr, char *str)
 	return 0;
 }
 
+int numOfTextures(int side, int stepY, int stepX)
+{
+	if (side == 1)
+    {
+      if (stepY == -1)
+        return 0;//запад
+      else
+        color = 0x7FFFD4; //восток
+    }
+    else
+    {
+      if (stepX == -1)
+        return 0;// север DarkBlue
+      else
+        return 1; //юг Lime
+    }
+}
+
 int it_is_not_wall(t_map* map, double row, double col)
 {
 	printf("%d %d %c \n", (int)row, (int)col, map->field[(int)row] [(int)col]);
@@ -186,8 +204,24 @@ int	ft_map_print(t_map *map)
 				// 	i++;
 				// }
 				//Вот так рисуется текстуру вместо цвета
+
+	// if (side == 1)
+    // {
+    //   if (stepY == -1)
+    //     color = 0x000000; //запад
+    //   else
+    //     color = 0x7FFFD4; //восток
+    // }
+    // else
+    // {
+    //   if (stepX == -1)
+    //     color = 0x00008B; // север DarkBlue
+    //   else
+    //     color = 0x00FF00; //юг Lime
+    // }
 		for (int w = 0; w < map->spec.r.y; w++)
 		{
+			int numOfTextures = NumOfText();
 			if (w >= drawStart && w <= drawEnd)
 			{
 				int texY = (int)texPos & (map->lodev.sprites_height - 1);
@@ -199,25 +233,6 @@ int	ft_map_print(t_map *map)
 			else if (w > drawEnd)
 				my_mlx_pixel_put(&map->grap, x, w, map->f);
 		}
-		// verLine_text(map, x, drawStart, drawEnd, Gray); // без текстур
-		//------------------------------------------------------------------------
-
-		//-----------------------------------------------------------------------
-		// Вывод текстуры по пикселям
-		/*
-		for (int i = 0; i < 60; i++)
-		{
-			for (int j = 0; j < 60; j++)
-			{
-				my_mlx_pixel_put(&map->grap, (i + 100), (j + 100), map->lodev.data_no[i * map->lodev.sprites_width + j]);
-			}
-		}
-		*/
-
-		//printf("drawStart= %d ", drawStart);
-		//printf("drawEnd= %d\n", drawEnd);
-		//------------------------------------------------------------------------
-
 	}
 
 	printf("map->lodev.dirX= %f ", map->lodev.dirX);

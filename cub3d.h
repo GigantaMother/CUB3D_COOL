@@ -102,9 +102,9 @@ typedef struct s_lodev
 	int		bpp;
 
 	void	*wall_no;
-	// void	*wall_so;
-	// void	*wall_we;
-	// void	*wall_ea;
+	void	*wall_so;
+	void	*wall_we;
+	void	*wall_ea;
 
 	int		*data_no;
 	// int		*data_so;
