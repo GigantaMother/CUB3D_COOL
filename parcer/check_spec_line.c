@@ -35,6 +35,7 @@ int	check_ident_line_R(t_spec *spec, char *line)
 }
 
 // Проверка корректности разрешения: ширина
+// printf("Hello %d\n", spec->r.x);
 static int	check_ident_line_R_x(t_spec *spec, char *line, int *i)
 {
 	while (line[*i])
@@ -42,7 +43,6 @@ static int	check_ident_line_R_x(t_spec *spec, char *line, int *i)
 		if (line[*i] >= '0' && line[*i] <= '9')
 		{
 			spec->r.x = spec->r.x * 10 + (line[*i] - 48);
-			// printf("Hello %d\n", spec->r.x);
 			if (spec->r.x > spec->r_max.x)
 				return (error(11));
 		}
@@ -88,7 +88,7 @@ int	check_ident_line_text(int *flag, int *texture, char *line)
 	end = -1;
 	if (check_ident_line_text_str(&start, &end, line) == 0)
 		return (0);
-	if (line[end - 3] != '.' || line[end - 2] != 'x' ||\
+	if (line[end - 3] != '.' || line[end - 2] != 'x' || \
 		line[end - 1] != 'p' || line[end] != 'm')
 		return (error(3));
 	line = line + start;
