@@ -82,33 +82,29 @@ typedef struct s_spec
 
 typedef struct s_lodev
 {
-	double posX;
-	double posY;
-
-	double dirX;
-	double dirY;
-
-	double planeX;
-	double planeY;
-
-	double moveSpeed;
-	double rotSpeed;
-
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	moveSpeed;
+	double	rotSpeed;
 	int		w;
 	int		h;
 
-} t_lodev;
+}	t_lodev;
 
 typedef struct s_text
 {
 	int		sprites_width;
-	int 	sprites_height;
+	int		sprites_height;
 	int		size_line;
 	int		endlan;
 	int		bpp;
 	void	*wall;
 	int		*data;
-} t_text;
+}	t_text;
 
 // структура для графики
 typedef struct s_grap
@@ -118,7 +114,6 @@ typedef struct s_grap
 	void	*img;
 	int		img_width;
 	int		img_height;
-	
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -139,11 +134,11 @@ typedef struct s_button
 
 typedef struct s_mini_map
 {
-	int color_wall;
-	int color_empty;
-	int color_player;
-	int size;
-	int mode;
+	int	color_wall;
+	int	color_empty;
+	int	color_player;
+	int	size;
+	int	mode;
 
 }t_mini_map;
 
@@ -156,22 +151,21 @@ typedef struct s_map
 	int			line_max;
 	int			column;
 	int			column_max;
-	int 		f;
-	int 		c;
+	int			f;
+	int			c;
 	t_spec		spec;
 	t_grap		grap;
 	t_button	button;
-	t_text		text[4];
-	t_mini_map  mini_map;
-
-	t_lodev 	lodev;
+	t_text		*text;
+	t_mini_map	mini_map;
+	t_lodev		lodev;
 }t_map;
 
 //  функции из файла grap_main.c
-void init_text(t_map *map);
+void	init_text(t_map *map);
 int		main_graphics(t_map *map);
-void verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color);
-void init_mini_map(t_map *map);
+void	verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color);
+void	init_mini_map(t_map *map);
 
 //  функции из файла grap_utilits.c
 int		rgb(int t, int r, int g, int b);
@@ -184,14 +178,12 @@ int		init_grap(t_map *map);
 void	init_buttom(t_button *button);
 
 //  функции из файла grap_my_test.c
-void print_help(t_map *map);
-int map_print(t_map *map);
-
+void	print_help(t_map *map);
+int		map_print(t_map *map);
 
 //-------------------------------------------------------------
 //-------------------------------------------------------------
 //-------------------------------------------------------------
-
 // функции из файла init.c (4)
 void	init_t_map(t_map *map);
 void	init_t_coord(t_coord *coord);
@@ -234,6 +226,6 @@ int		error(int e);
 //  функции из файла print.c (3)
 void	print_mod(t_map map, int mod);
 
-void verLine(t_map *map, int x, int drawStart, int drawEnd, int color);
+void	verLine(t_map *map, int x, int drawStart, int drawEnd, int color);
 
 #endif

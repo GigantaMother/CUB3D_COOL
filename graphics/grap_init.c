@@ -1,6 +1,7 @@
 #include "../cub3d.h"
 
 static void	init_player(t_map *map);
+static void	init_player_E_W(t_map *map, int i, int j);
 
 // иницилизация начальных параметров для работы с графикой
 int	init_grap(t_map *map)
@@ -100,20 +101,51 @@ static void	init_player(t_map *map)
 	map->lodev.rotSpeed = 0.1;
 }
 
-static void	init_player_coord()
+static void	init_player_E_W(t_map *map, int i, int j)
 {
+	if (map->field[i][j] == 'N')
+	{
+		map->lodev.dirX = -1.0;
+		map->lodev.dirY = 0;
+		map->lodev.planeX = 0;
+		map->lodev.planeY = 0.66;
+	}
+	else if (map->field[i][j] == 'S')
+	{
+		map->lodev.dirX = 1.0;
+		map->lodev.dirY = 0;
+		map->lodev.planeX = 0;
+		map->lodev.planeY = -0.66;
+	}
+}
 
+static void	init_player_N_S(t_map *map, int i, int j)
+{
+	if (map->field[i][j] == 'N')
+	{
+		map->lodev.dirX = -1.0;
+		map->lodev.dirY = 0;
+		map->lodev.planeX = 0;
+		map->lodev.planeY = 0.66;
+	}
+	else if (map->field[i][j] == 'S')
+	{
+		map->lodev.dirX = 1.0;
+		map->lodev.dirY = 0;
+		map->lodev.planeX = 0;
+		map->lodev.planeY = -0.66;
+	}
 }
 
 void init_text(t_map *map)
 {
 	map->field[(int)map->lodev.posX][(int)map->lodev.posY] = '0';
 
+	map->text = malloc(sizeof(t_text) * 4);
 	map->text[0].wall = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick1.xpm", &map->text[0].sprites_width , &map->text[0].sprites_height);
 	map->text[1].wall = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick2.xpm", &map->text[1].sprites_width , &map->text[1].sprites_height);
 	map->text[2].wall = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick3.xpm", &map->text[2].sprites_width , &map->text[2].sprites_height);
 	map->text[3].wall = mlx_xpm_file_to_image(map->grap.mlx, "textures/brick4.xpm", &map->text[3].sprites_width , &map->text[3].sprites_height);
-
 	map->text[0].data = (int *)mlx_get_data_addr(map->text[0].wall, &map->text[0].bpp, &map->text[0].size_line, &map->text[0].endlan);
 	map->text[1].data = (int *)mlx_get_data_addr(map->text[1].wall, &map->text[1].bpp, &map->text[1].size_line, &map->text[1].endlan);
 	map->text[2].data = (int *)mlx_get_data_addr(map->text[2].wall, &map->text[2].bpp, &map->text[2].size_line, &map->text[2].endlan);

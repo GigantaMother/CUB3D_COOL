@@ -34,6 +34,8 @@ void	square_print(t_map *map, t_coord start, t_coord size, int color)
 	}
 }
 
+//write(2, "KEK\n", 4);
+//my_mlx_pixel_put(&map->grap, x, i, color);
 void verLine(t_map *map, int x, int drawStart, int drawEnd, int color)
 {
 	int i;
@@ -42,14 +44,9 @@ void verLine(t_map *map, int x, int drawStart, int drawEnd, int color)
 	while (i < map->spec.r.y)
 	{
 		if (i >= drawStart && i <= drawEnd)
-		{
-			//write(2, "KEK\n", 4);
-			//my_mlx_pixel_put(&map->grap, x, i, color);
 			my_mlx_pixel_put(&map->grap, x, i, color);
-		}
 		else if (i < drawStart)
 			my_mlx_pixel_put(&map->grap, x, i, Blue);
-		//my_mlx_pixel_put(&map->grap, x, i, color);
 		i++;
 	}
 }

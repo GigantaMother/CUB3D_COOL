@@ -15,20 +15,22 @@ int char_in_str(char cr, char *str)
 
 int numOfTextures(int side, int stepY, int stepX)
 {
-	if (side == 1)
-    {
-      if (stepY == -1)
-        return 0;//запад
-      else
-        color = 0x7FFFD4; //восток
-    }
-    else
-    {
-      if (stepX == -1)
-        return 0;// север DarkBlue
-      else
-        return 1; //юг Lime
-    }
+	// if (side == 1)
+    // {
+    //   if (stepY == -1)
+    //     return 0;//запад
+    //   else
+    //     color = 0x7FFFD4; //восток
+    // }
+    // else
+    // {
+    //   if (stepX == -1)
+    //     return 0;// север DarkBlue
+    //   else
+    //     return 1; //юг Lime
+
+ //   }
+ return(0);
 }
 
 int it_is_not_wall(t_map* map, double row, double col)
@@ -221,7 +223,7 @@ int	ft_map_print(t_map *map)
     // }
 		for (int w = 0; w < map->spec.r.y; w++)
 		{
-			int numOfTextures = NumOfText();
+			//int numOfTextures = NumOfText();
 			if (w >= drawStart && w <= drawEnd)
 			{
 				int texY = (int)texPos & (map->text[0].sprites_height - 1);
