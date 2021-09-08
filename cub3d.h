@@ -146,6 +146,32 @@ typedef struct s_mini_map
 
 }t_mini_map;
 
+typedef struct s_print_data
+{
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	double	wallX;
+	int		numText;
+	double	step;
+	double	texPos;
+	int		texX;
+}t_print_data;
+
 // структура для карты
 typedef struct s_map
 {
