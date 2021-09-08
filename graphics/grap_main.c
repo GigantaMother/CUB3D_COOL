@@ -57,7 +57,7 @@ void	change_player_position(t_map *map, double row, double col)
 
 	// row2 = (int)(map->lodev.posX + 2 * (row - map->lodev.posX));
 	// col2 = (int)(map->lodev.posY + 2 * (col - map->lodev.posY));
-	printf("%f %f\n", row, col);
+	// printf("%f %f\n", row, col);
 	// printf("%d %d \n", row2, col2);
 	// 	// && map->field[(int)map->lodev.posX][col2] != '1' && map->field[col2][(int)map->lodev.posX] != '1')
 	if (it_is_not_wall(map, row, col))
@@ -219,11 +219,10 @@ int	ft_map_print(t_map *map)
     //   else
     //     color = 0x00FF00; //юг Lime
     // }
-		// int numText = numOfText(side, stepY, stepX);
-		int numText = 0;
+		int numText = numOfText(side, stepY, stepX);
+		// int numText = 0;
 		for (int w = 0; w < map->spec.r.y; w++)
 		{
-			printf("%d numText\n", numText);
 			if (w >= drawStart && w <= drawEnd)
 			{
 				int texY = (int)texPos & (map->text[numText].sprites_height - 1);
