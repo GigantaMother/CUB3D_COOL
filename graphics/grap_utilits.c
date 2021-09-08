@@ -76,7 +76,7 @@ void verLine_text(t_map *map, int x, int drawStart, int drawEnd, int color)
 	{
 		if (w >= drawStart && w <= drawEnd)
 		{
-			my_mlx_pixel_put(&map->grap, x, w, map->lodev.data_no[(w % map->lodev.sprites_width)  * map->lodev.sprites_width + (x % map->lodev.sprites_height)]);
+			my_mlx_pixel_put(&map->grap, x, w, map->text[0].data[(w % map->text[0].sprites_width)  * map->text[0].sprites_width + (x % map->text[0].sprites_height)]);
 		}
 		else if (w < drawStart)
 			my_mlx_pixel_put(&map->grap, x, w, map->c);
