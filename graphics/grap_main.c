@@ -164,13 +164,13 @@ int	ft_map_print(t_map *map)
 		wallX = wallX - (int)(wallX);
 		// координата x на текстуре
 		//printf("WallX= %f\n", wallX);
-		int texX = (int)(wallX * (double)(map->lodev.sprites_width));
+		int texX = (int)(wallX * (double)(map->text[0].sprites_width));
 		if(side == 0 && rayDirX > 0)
-			texX = map->lodev.sprites_width - texX - 1;
+			texX = map->text[0].sprites_width - texX - 1;
 		if(side == 1 && rayDirY < 0)
-			texX = map->lodev.sprites_width - texX - 1;
+			texX = map->text[0].sprites_width - texX - 1;
 		
-		double step = 1.0 *  map->lodev.sprites_height / lineHeight;
+		double step = 1.0 *  map->text[0].sprites_height / lineHeight;
 		double texPos = (drawStart -  map->lodev.h / 2 + lineHeight / 2) * step;		
 
 		//------------------------------------------------------------------------
@@ -190,9 +190,9 @@ int	ft_map_print(t_map *map)
 		{
 			if (w >= drawStart && w <= drawEnd)
 			{
-				int texY = (int)texPos & (map->lodev.sprites_height - 1);
+				int texY = (int)texPos & (map->text[0].sprites_height - 1);
 				texPos += step;
-				my_mlx_pixel_put(&map->grap, x, w, map->lodev.data_no[texY * map->lodev.sprites_height + texX]);
+				my_mlx_pixel_put(&map->grap, x, w, map->text[0].data[texY * map->text[0].sprites_height + texX]);
 			}
 			else if (w < drawStart)
 				my_mlx_pixel_put(&map->grap, x, w, map->c);

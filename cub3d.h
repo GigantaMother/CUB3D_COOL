@@ -94,28 +94,21 @@ typedef struct s_lodev
 	double moveSpeed;
 	double rotSpeed;
 
-	int		sprites_width;
-	int 	sprites_height;
-
-	int		size_line;
-	int		endlan;
-	int		bpp;
-
-	void	*wall_no;
-	// void	*wall_so;
-	// void	*wall_we;
-	// void	*wall_ea;
-
-	int		*data_no;
-	// int		*data_so;
-	// int		*data_we;
-	// int		*data_ea;
-
-
 	int		w;
 	int		h;
 
 } t_lodev;
+
+typedef struct s_text
+{
+	int		sprites_width;
+	int 	sprites_height;
+	int		size_line;
+	int		endlan;
+	int		bpp;
+	void	*wall;
+	int		*data;
+} t_text;
 
 // структура для графики
 typedef struct s_grap
@@ -168,6 +161,7 @@ typedef struct s_map
 	t_spec		spec;
 	t_grap		grap;
 	t_button	button;
+	t_text		text[4];
 	t_mini_map  mini_map;
 
 	t_lodev 	lodev;
