@@ -226,6 +226,12 @@ int	ft_map_print(t_map *map)
 	return (0);
 }
 
+// int key_hook_mouse(int x, int y,  t_map *map)
+// {
+
+// 	return (1);
+// }
+
 int	main_graphics(t_map *map)
 {
 	if (init_grap(map) == 0)
@@ -233,9 +239,10 @@ int	main_graphics(t_map *map)
 	init_text(map);
 	init_mini_map(map);
 	ft_map_print(map);
-	mlx_hook(map->grap.win, 2, 1L << 2, key_hook_press, map);
-	mlx_hook(map->grap.win, 3, 1L << 3, key_hook_repress, map); 
-	mlx_hook(map->grap.win, 17, 1L << 2, key_hook_close, map);
+	mlx_hook(map->grap.win, 2, 0, key_hook_press, map);
+	mlx_hook(map->grap.win, 3, 0, key_hook_repress, map); 
+	mlx_hook(map->grap.win, 17, 0, key_hook_close, map);
+	//mlx_hook(map->grap.win, 6, 0, key_hook_mouse, map);
 	mlx_loop(map->grap.mlx);
 	return (1);
 }
