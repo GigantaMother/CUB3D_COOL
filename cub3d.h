@@ -195,6 +195,8 @@ typedef struct s_map
 	t_lodev		lodev;
 }t_map;
 
+void	key_hook_press_turn_r(t_map *map);
+void	key_hook_press_turn_l(t_map *map);
 void	ft_check_copy(char *line, char **way, int len);
 int		key_hook_close(int keycode, t_map *map);
 int		ft_map_print(t_map *map);

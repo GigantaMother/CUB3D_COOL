@@ -176,7 +176,7 @@ void display_game(t_print_data *vel, t_map *map, int x)
 	int	w;
 
 	w = 0;
-		printf("%d - x| %d | %f %f | %f | %f | %f\n", x,vel->numText,vel->texPos,vel->step,vel->perpWallDist,vel->rayDirX,vel->rayDirY );
+		//printf("%d - x| %d | %f %f | %f | %f | %f\n", x,vel->numText,vel->texPos,vel->step,vel->perpWallDist,vel->rayDirX,vel->rayDirY );
 	while(w < map->spec.r.y)
 	{
 		if (w >= vel->drawStart && w <= vel->drawEnd)
@@ -209,117 +209,117 @@ int	ft_map_print(t_map *map)
 		display_game(&velues, map, x);
 
 		
-		// double cameraX = 2 * x / (double)map->lodev.w - 1;
+		double cameraX = 2 * x / (double)map->lodev.w - 1;
 
-		// double rayDirX = map->lodev.dirX + map->lodev.planeX * cameraX;
-		// double rayDirY =  map->lodev.dirY + map->lodev.planeY * cameraX;
+		double rayDirX = map->lodev.dirX + map->lodev.planeX * cameraX;
+		double rayDirY =  map->lodev.dirY + map->lodev.planeY * cameraX;
 
-		// int mapX = (int)(map->lodev.posX);
-		// int mapY = (int)(map->lodev.posY);
+		int mapX = (int)(map->lodev.posX);
+		int mapY = (int)(map->lodev.posY);
 
-		// double sideDistX;
-		// double sideDistY;
+		double sideDistX;
+		double sideDistY;
 
-		// double deltaDistX = fabs(1 / rayDirX);
-		// double deltaDistY = fabs(1 / rayDirY);
-		// double perpWallDist;
+		double deltaDistX = fabs(1 / rayDirX);
+		double deltaDistY = fabs(1 / rayDirY);
+		double perpWallDist;
 
-		// int stepX;
-		// int stepY;
+		int stepX;
+		int stepY;
 
-		// int hit = 0;
-		// int side;
-		// if(rayDirX < 0)
-		// {
-		// 	stepX = -1;
-		// 	sideDistX = (map->lodev.posX - mapX) * deltaDistX;
-		// }
-		// else
-		// {
-		// 	stepX = 1;
-		// 	sideDistX = (mapX + 1.0 - map->lodev.posX) * deltaDistX;
-		// }
-		// if(rayDirY < 0)
-		// {
-		// 	stepY = -1;
-		// 	sideDistY = (map->lodev.posY - mapY) * deltaDistY;
-		// }
-		// else
-		// {
-		// 	stepY = 1;
-		// 	sideDistY = (mapY + 1.0 - map->lodev.posY) * deltaDistY;
-		// }
-		// while (hit == 0)
-		// {
-		// 	if(sideDistX < sideDistY)
-		// 	{
-		// 		sideDistX += deltaDistX;
-		// 		mapX += stepX;
-		// 		side = 0;
-		// 	}
-		// 	else
-		// 	{
-		// 		sideDistY += deltaDistY;
-		// 		mapY += stepY;
-		// 		side = 1;
-		// 	}
-		// 	if(map->field[mapX][mapY] == '1')
-		// 		hit = 1;
-		// }
-		// if(side == 0)
-		// {
-		// 	perpWallDist = (mapX -  map->lodev.posX + (1 - stepX) / 2) / rayDirX;
-		// 	// printf("%f\n", perpWallDist);
-		// }
-		// else
-		// 	perpWallDist = (mapY -  map->lodev.posY + (1 - stepY) / 2) / rayDirY;
+		int hit = 0;
+		int side;
+		if(rayDirX < 0)
+		{
+			stepX = -1;
+			sideDistX = (map->lodev.posX - mapX) * deltaDistX;
+		}
+		else
+		{
+			stepX = 1;
+			sideDistX = (mapX + 1.0 - map->lodev.posX) * deltaDistX;
+		}
+		if(rayDirY < 0)
+		{
+			stepY = -1;
+			sideDistY = (map->lodev.posY - mapY) * deltaDistY;
+		}
+		else
+		{
+			stepY = 1;
+			sideDistY = (mapY + 1.0 - map->lodev.posY) * deltaDistY;
+		}
+		while (hit == 0)
+		{
+			if(sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				mapX += stepX;
+				side = 0;
+			}
+			else
+			{
+				sideDistY += deltaDistY;
+				mapY += stepY;
+				side = 1;
+			}
+			if(map->field[mapX][mapY] == '1')
+				hit = 1;
+		}
+		if(side == 0)
+		{
+			perpWallDist = (mapX -  map->lodev.posX + (1 - stepX) / 2) / rayDirX;
+			// printf("%f\n", perpWallDist);
+		}
+		else
+			perpWallDist = (mapY -  map->lodev.posY + (1 - stepY) / 2) / rayDirY;
 
-		// int lineHeight = (int)(map->lodev.h / perpWallDist);
+		int lineHeight = (int)(map->lodev.h / perpWallDist);
 
-		// int drawStart = -lineHeight / 2 + map->lodev.h / 2;
-		// if(drawStart < 0)
-		// 	drawStart = 0;
-		// int drawEnd = lineHeight / 2 + map->lodev.h / 2;
-		// if(drawEnd >= map->lodev.h)
-		// 	drawEnd = map->lodev.h - 1;
-		// //------------------------------------------------------------------------
-		// //------------------------------------------------------------------------
-		// double wallX;
-		// if (side == 0)
-		// 	wallX = map->lodev.posY + perpWallDist * rayDirY;
-		// else
-		// 	wallX = map->lodev.posX + perpWallDist * rayDirX;
-		// wallX = wallX - (int)(wallX);
-		// // координата x на текстуре
-		// //printf("WallX= %f\n", wallX);
-		// // TO DO/ make it fot array of textures
-		// int numText = numOfText(side, stepY, stepX);
-		// int texX = (int)(wallX * (double)(map->text[numText].sprites_width));
-		// if(side == 0 && rayDirX > 0)
-		// 	texX = map->text[numText].sprites_width - texX - 1;
-		// if(side == 1 && rayDirY < 0)
-		// 	texX = map->text[numText].sprites_width - texX - 1;
+		int drawStart = -lineHeight / 2 + map->lodev.h / 2;
+		if(drawStart < 0)
+			drawStart = 0;
+		int drawEnd = lineHeight / 2 + map->lodev.h / 2;
+		if(drawEnd >= map->lodev.h)
+			drawEnd = map->lodev.h - 1;
+		//------------------------------------------------------------------------
+		//------------------------------------------------------------------------
+		double wallX;
+		if (side == 0)
+			wallX = map->lodev.posY + perpWallDist * rayDirY;
+		else
+			wallX = map->lodev.posX + perpWallDist * rayDirX;
+		wallX = wallX - (int)(wallX);
+		// координата x на текстуре
+		//printf("WallX= %f\n", wallX);
+		// TO DO/ make it fot array of textures
+		int numText = numOfText(side, stepY, stepX);
+		int texX = (int)(wallX * (double)(map->text[numText].sprites_width));
+		if(side == 0 && rayDirX > 0)
+			texX = map->text[numText].sprites_width - texX - 1;
+		if(side == 1 && rayDirY < 0)
+			texX = map->text[numText].sprites_width - texX - 1;
 		
-		// double step = 1.0 *  map->text[0].sprites_height / lineHeight;
-		// double texPos = (drawStart -  map->lodev.h / 2 + lineHeight / 2) * step;		
-		// // int numText = 0;
-		// printf("%d - x| %d | %f %f | %f | %f | %f\n", x, numText, texPos, step, perpWallDist, rayDirX, rayDirY );
-		// for (int w = 0; w < map->spec.r.y; w++)
-		// {
-		// 	if (w >= drawStart && w <= drawEnd)
-		// 	{
-		// 		int texY = (int)texPos & (map->text[numText].sprites_height - 1);
-		// 		texPos += step;
-		// 		my_mlx_pixel_put(&map->grap, x, w, map->text[numText].data[texY * 
-		// 		map->text[numText].sprites_height + texX]);
-		// 	}
-		// 	else if (w < drawStart)
-		// 		my_mlx_pixel_put(&map->grap, x, w, map->c);
-		// 	else if (w > drawEnd)
-		// 		my_mlx_pixel_put(&map->grap, x, w, map->f);
-		// }
+		double step = 1.0 *  map->text[0].sprites_height / lineHeight;
+		double texPos = (drawStart -  map->lodev.h / 2 + lineHeight / 2) * step;		
+		// int numText = 0;
+		//printf("%d - x| %d | %f %f | %f | %f | %f\n", x, numText, texPos, step, perpWallDist, rayDirX, rayDirY );
+		for (int w = 0; w < map->spec.r.y; w++)
+		{
+			if (w >= drawStart && w <= drawEnd)
+			{
+				int texY = (int)texPos & (map->text[numText].sprites_height - 1);
+				texPos += step;
+				my_mlx_pixel_put(&map->grap, x, w, map->text[numText].data[texY * 
+				map->text[numText].sprites_height + texX]);
+			}
+			else if (w < drawStart)
+				my_mlx_pixel_put(&map->grap, x, w, map->c);
+			else if (w > drawEnd)
+				my_mlx_pixel_put(&map->grap, x, w, map->f);
+		}
 		
-		// printf("Kek\n");
+		//printf("Kek\n");
 	}
 	// printf("map->lodev.dirX= %f ", map->lodev.dirX);
 	// printf("map->lodev.dirY= %f\n", map->lodev.dirY);
@@ -330,11 +330,34 @@ int	ft_map_print(t_map *map)
 	return (0);
 }
 
-// int key_hook_mouse(int x, int y,  t_map *map)
-// {
+int key_hook_mouse(int x, int y, t_map *map)
+{
+	int x_t;
+	int y_t;
 
-// 	return (1);
-// }
+	x_t = 0;
+	y_t = 0;
+
+	// mlx_mouse_get_pos(map->grap.win, &x_t, &y_t);
+	// if (x_t > map->spec.r.x/2)
+	// {
+	// 	write(1, "R\n", 2);
+	// 	key_hook_press_turn_r(map);
+	// 	ft_map_print(map);
+	// }
+	// else if (x_t < map->spec.r.x/2)
+	// {
+	// 	write(1, "L\n", 2);
+	// 	key_hook_press_turn_l(map);
+	// 	ft_map_print(map);
+	// }
+	// mlx_mouse_move(map->grap.win, map->spec.r.x/2, map->spec.r.y/2);
+
+	//printf("Hello");
+	//write(1, "Hello\n", 6);
+	//printf("x= %d y= %d\n", x, y);
+	return (1);
+}
 
 int	main_graphics(t_map *map)
 {
@@ -343,6 +366,10 @@ int	main_graphics(t_map *map)
 	init_text(map);
 	init_mini_map(map);
 	ft_map_print(map);
+	//---
+	mlx_mouse_show();
+	mlx_mouse_move(map->grap.win, map->spec.r.x/2, map->spec.r.y/2);
+	//----
 	mlx_hook(map->grap.win, 2, 0, key_hook_press, map);
 	mlx_hook(map->grap.win, 3, 0, key_hook_repress, map); 
 	mlx_hook(map->grap.win, 17, 0, key_hook_close, map);
