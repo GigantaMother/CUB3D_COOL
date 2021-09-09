@@ -9,6 +9,9 @@ SRCS := error.c \
 		graphics/grap_main.c \
 		graphics/grap_minimap.c \
 		graphics/grap_utilits.c \
+		graphics/grap_main_loop_utils.c \
+		graphics/grap_move.c \
+		graphics/grap_calculate_img.c \
 		parcer/check_border.c \
 		parcer/check_file.c \
 		parcer/check_map.c \
