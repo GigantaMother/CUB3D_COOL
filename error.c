@@ -108,7 +108,7 @@ static void	error_31_40(int e)
 		printf("Extra characters at the end of color initialization\n");
 	else if (e == 35)
 		printf("At the end of the initialization of the texture, \
-		extra characters\n");
+extra characters\n");
 	else if (e == 36)
 		printf("malloc error\n");
 	else if (e == 37)

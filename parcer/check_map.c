@@ -22,7 +22,8 @@ int	check_map(t_map *map)
 	}
 	if (check_map_help(map, &player, line, ret) == 0)
 		return (0);
-	free(line);
+	if (ft_strlen(line) != 0)
+		free(line);
 	if (player == 0)
 		return (error(25));
 	if (map->line < 3 || map->column < 3)

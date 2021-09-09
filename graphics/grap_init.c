@@ -38,9 +38,9 @@ void	init_mini_map(t_map *map)
 {
 	map->mini_map.color_wall = Gray;
 	map->mini_map.color_empty = White;
-	map->mini_map.color_player = Lime;
-	map->mini_map.size = 2;
-	map->mini_map.mode = 0;
+	map->mini_map.color_player = Red;
+	map->mini_map.size = 4;
+	map->mini_map.mode = 2;
 }
 
 void	init_text(t_map *map)

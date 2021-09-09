@@ -26,7 +26,6 @@ int	check_ident(t_spec *spec, int fd)
 			return (0);
 		free(line);
 	}
-	free(line);
 	if (check_ident_all(*spec) == 0)
 		return (error(6));
 	return (1);
