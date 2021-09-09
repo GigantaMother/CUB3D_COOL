@@ -89,6 +89,7 @@ static void	init_map_transfer(t_map *map, char *name)
 	{
 		count++;
 		get_next_line(map->fd, &line);
+		free(line);
 	}
 	while (r)
 	{

@@ -76,11 +76,12 @@ static int	check_ident_line_R_y(t_spec *spec, char *line, int *i)
 }
 
 // Определяет является ли спецификатор-текстура верным
-int	check_ident_line_text(int *flag, int *texture, char *line)
+int	check_id_line(int *flag, int *texture, char *line, char **way)
 {
 	int	l;
 	int	start;
 	int	end;
+	int	len;
 
 	*flag = *flag + 1;
 	l = ft_strlen(line);
@@ -93,8 +94,12 @@ int	check_ident_line_text(int *flag, int *texture, char *line)
 		return (error(3));
 	line = line + start;
 	*texture = check_open_file(line);
+	close (*texture);
 	if (*texture == 0)
 		return (0);
+	len = ft_strlen(line);
+	(*way) = malloc(sizeof(char) * (len + 1));
+	ft_check_copy(line, way, len);
 	return (1);
 }
 
