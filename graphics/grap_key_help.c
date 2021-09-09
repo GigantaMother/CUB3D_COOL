@@ -19,6 +19,6 @@ int	key_hook_repress(int keycode, t_map *map)
 
 int	key_hook_close(int keycode, t_map *map)
 {
-	printf("Выход через крестик\n");
+	printf("exit be ESC\n");
 	exit (0);
 }

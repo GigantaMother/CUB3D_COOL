@@ -38,7 +38,7 @@ static void	key_hook_press_take(int keycode, t_map *map)
 {
 	if (keycode == Esc)
 	{
-		printf("Выход через esc\n");
+		printf("Exit from ESC\n");
 		mlx_destroy_window(map->grap.mlx, map->grap.win);
 		exit (0);
 	}

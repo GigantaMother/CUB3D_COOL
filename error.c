@@ -5,8 +5,6 @@ static void	error_11_20(int e);
 static void	error_21_30(int e);
 static void	error_31_40(int e);
 
-// Основаная функция для выхова ошибок
-// остальные для их перечисления
 int	error(int e)
 {
 	printf("Error\n");
@@ -19,97 +17,98 @@ int	error(int e)
 	else if (e >= 31 && e <= 40)
 		error_31_40(e);
 	else
-		printf("Неверный код ошибки\n");
+		printf("Invalid error code\n");
 	exit (0);
 }
 
 static void	error_1_10(int e)
 {
 	if (e == 1)
-		printf("Неверное кол-во аргументов функции\n");
+		printf("Invalid number of function arguments\n");
 	else if (e == 2)
-		printf("Имя файла слишком короткое\n");
+		printf("The file name is too short\n");
 	else if (e == 3)
-		printf("Формат файлa неверен\n");
+		printf("The file format is incorrect\n");
 	else if (e == 4)
-		printf("Файл не открылся, какая жалость\n");
+		printf("The file didn't open, what a pity\n");
 	else if (e == 5)
-		printf("Cтрока спецификатора слишком короткая\n");
+		printf("The specifier string is too short\n");
 	else if (e == 6)
-		printf("Нет спецификаторов в файле\n");
+		printf("No specifiers in file\n");
 	else if (e == 7)
-		printf("Cпецификатора R.x не цифра\n");
+		printf("Specifier R.x not a digit\n");
 	else if (e == 8)
-		printf("После спецификатора R.x нет пробела\n");
+		printf("There is no space after the R.x specifier\n");
 	else if (e == 9)
-		printf("Cпецификатора R.y не цифра\n");
+		printf("Specifier R.y is not a digit\n");
 	else if (e == 10)
-		printf("Дублирующийся спецификатор\n");
+		printf("Duplicate specifier\n");
 }
 
 static void	error_11_20(int e)
 {
 	if (e == 11)
-		printf("Cпецификатора R.x слишком большой \
-		повторная инициализация цвета\n");
+		printf("The R.x specifier is too large \
+re-initialization of color\n");
 	else if (e == 12)
-		printf("Cпецификатора R.y слишком большой \
-		повторная инициализация цвета\n");
+		printf("The R.x specifier is too large \
+re-initialization of color\n");
 	else if (e == 13)
-		printf("Cпецификатора R.x слишком маленький/не задан\n");
+		printf("R.x specifier too small / not specified\n");
 	else if (e == 14)
-		printf("Cпецификатора R.y слишком маленький/не задан\n");
+		printf("The specifier R.y is too small / not specified\n");
 	else if (e == 15)
-		printf("Неверный спецификатор\n");
+		printf("Invalid specifier\n");
 	else if (e == 16)
-		printf("Значение цвета напиcано неправильно\n");
+		printf("The meaning of the color is spelled incorrectly\n");
 	else if (e == 17)
-		printf("Значения цвета не может быть такой большой цифрой/\
-		повторная инициализация цвета\n");
+		printf("Color values cannot be such a large number / \
+re-initialization of color\n");
 	else if (e == 18)
-		printf("Цвет задан неполностью\n");
+		printf("Color is incomplete\n");
 	else if (e == 19)
-		printf("После последнего параметра цвета не должно быть запятой\n");
+		printf("There should be no comma after the last color parameter\n");
 	else if (e == 20)
-		printf("При распечатке был передан неправильно режим печати\n");
+		printf("Incorrect print mode was transferred during printing\n");
 }
 
 static void	error_21_30(int e)
 {
 	if (e == 21)
-		printf("Игроков больше 1\n");
+		printf("Players more than 1\n");
 	else if (e == 22)
-		printf("Запрещённый символ в карте\n");
+		printf("Forbidden symbol in the map\n");
 	else if (e == 23)
-		printf("Строк в карте слишком много\n");
+		printf("Too many lines in the map\n");
 	else if (e == 24)
-		printf("Столбцов в карте слишком много\n");
+		printf("Too many columns in the map\n");
 	else if (e == 25)
-		printf("Нет игрока на карте\n");
+		printf("No player on the map\n");
 	else if (e == 26)
-		printf("Карта разделена\n");
+		printf("The map is split\n");
 	else if (e == 27)
-		printf("Не хватило памяти под нужное кол-во строк\n");
+		printf("There was not enough memory for the required number of lines\n");
 	else if (e == 28)
-		printf("Не хватило памяти под одну из строк\n");
+		printf("There was not enough memory for one of the lines\n");
 	else if (e == 29)
-		printf("Карта слишком маленькая\n");
+		printf("The map is too small\n");
 	else if (e == 30)
-		printf("Предметы на карте не могут так располагаться\n");
+		printf("Items on the map cannot be positioned like this\n");
 }
 
 static void	error_31_40(int e)
 {
 	if (e == 31)
-		printf("Не удалось иницилизирвоать mlx\n");
+		printf("Failed to initialize mlx\n");
 	else if (e == 32)
-		printf("После разрешения лишнии символы\n");
+		printf("After permission, extra characters\n");
 	else if (e == 33)
-		printf("В инициализации цвета не может быть пробелов\n");
+		printf("There can be no spaces in color initialization\n");
 	else if (e == 34)
-		printf("В конце инициализации цвета лишнии символы\n");
+		printf("Extra characters at the end of color initialization\n");
 	else if (e == 35)
-		printf("В конце инициализации текстуры лишнии символы\n");
+		printf("At the end of the initialization of the texture, \
+		extra characters\n");
 	else if (e == 36)
 		printf("malloc error\n");
 	else if (e == 37)

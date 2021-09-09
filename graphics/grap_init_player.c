@@ -3,8 +3,6 @@
 static void	init_player_E_W(t_map *map, int i, int j);
 static void	init_player_N_S(t_map *map, int i, int j);
 
-// начальные данные игрока
-// N - север S - юг E - восток  W - запад 
 void	init_player(t_map *map)
 {
 	int	i;
