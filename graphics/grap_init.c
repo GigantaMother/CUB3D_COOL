@@ -7,9 +7,10 @@ int	init_grap(t_map *map)
 	map->grap.mlx = mlx_init();
 	if (map->grap.mlx == NULL)
 		return (error(31));
-		// UUU
 	map->grap.win = mlx_new_window(map->grap.mlx, map->spec.r.x, map->spec.r.y, \
 					 "cub3D");
+	if (map->grap.win == NULL)
+		error(39);
 	map->grap.img = mlx_new_image(map->grap.mlx, map->spec.r.x, map->spec.r.y);
 	if (map->grap.img == NULL)
 		error(38);
@@ -44,7 +45,6 @@ void	init_mini_map(t_map *map)
 
 void	init_text(t_map *map)
 {
-	//UUUUUUUUUU
 	map->field[(int)map->lodev.posX][(int)map->lodev.posY] = '0';
 	map->text = malloc(sizeof(t_text) * 4);
 	if (map->text == NULL)
@@ -68,7 +68,6 @@ void	init_text(t_map *map)
 
 static void	init_text_help(t_map *map)
 {
-	// UUUUUU
 	map->text[2].wall = mlx_xpm_file_to_image(map->grap.mlx, \
 		map->spec.we_way, &map->text[2].sprites_width, \
 		&map->text[2].sprites_height);
