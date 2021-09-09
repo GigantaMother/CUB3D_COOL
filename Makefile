@@ -31,13 +31,15 @@ INCLUDE = -I./ -I./get_next_line
 
 FRAEMWORKS= -framework OpenGL -framework AppKit
 
+HEADER = cub3d.h
+
 LIBS = libft.a libmlx.a
 
-CFLAGS	= 					
+CFLAGS	= -Wall -Wextra -Werror					
 
 OBJ		=	$(patsubst %.c, %.o,$(SRCS))
 
-%.o:		%.c
+%.o:%.c $(HEADER)
 			$(CC) $(CFLAGS) $(INCLUDE) -c -g $< -o $@
 all		:	$(NAME)
 

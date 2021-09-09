@@ -19,6 +19,8 @@ int	key_hook_repress(int keycode, t_map *map)
 
 int	key_hook_close(int keycode, t_map *map)
 {
+	(void)map;
+	(void)keycode;
 	printf("exit be ESC\n");
 	exit (0);
 }
