@@ -225,6 +225,22 @@ void	init_buttom(t_button *button);
 void	print_help(t_map *map);
 int		map_print(t_map *map);
 
+// функции из файла grap_main_loop_utils.c
+int		char_in_str(char cr, char *str);
+int		numOfText(int side, int stepY, int stepX);
+int		it_is_not_wall(t_map *map, double row, double col);
+
+// функции из файла grap_move.c
+void	change_player_position(t_map *map, double row, double col);
+void	move_forward(t_map *map, int flag, double *x, double *y);
+void	move_side(t_map *map, int flag, double *x, double *y);
+
+// функции из файла grap_calculate_img.c
+void	calculate_img1(t_print_data *vel, t_map *map, int x);
+void	calculate_img2(t_print_data *vel, t_map *map);
+void	calculate_img3(t_print_data *vel, t_map *map);
+void	calculate_img4(t_print_data *vel, t_map *map);
+void	calculate_img5(t_print_data *vel, t_map *map);
 //-------------------------------------------------------------
 //-------------------------------------------------------------
 //-------------------------------------------------------------
