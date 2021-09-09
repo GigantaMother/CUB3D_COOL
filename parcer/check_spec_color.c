@@ -4,6 +4,8 @@ static int	check_ident_line_col_rgb(int *log, int *color, char *line, int *i);
 static int	check_ident_line_color_log(char *line, int i, t_color log_rgb);
 
 // Проверка корректности цвета
+// 	printf("line= {%s}\n", line);
+// printf("1) line[%d]= %c \n", i, line[i]);
 int	check_ident_line_color(int *flag, t_color *color, char *line)
 {
 	int		i;
@@ -53,7 +55,8 @@ static int	check_ident_line_col_rgb(int *log, int *color, char *line, int *i)
 			return (error(16));
 		*i = *i + 1;
 	}
-	*i = *i + 1;
+	if (line[*i] != '\0')
+		*i = *i + 1;
 	return (1);
 }
 

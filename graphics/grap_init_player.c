@@ -30,8 +30,8 @@ void	init_player(t_map *map)
 	}
 	map->lodev.w = map->spec.r.x;
 	map->lodev.h = map->spec.r.y;
-	map->lodev.moveSpeed = 0.1;
-	map->lodev.rotSpeed = 0.1;
+	map->lodev.moveSpeed = 0.055;
+	map->lodev.rotSpeed = 0.035;
 }
 
 static void	init_player_N_S(t_map *map, int i, int j)

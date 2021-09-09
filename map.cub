@@ -1,11 +1,11 @@
-R   900 600    
+R  1500 1000   
 
 NO    textures/brick1.xpm
 SO   textures/brick2.xpm 
 WE  textures/brick3.xpm  
 EA textures/brick4.xpm
 
-C    0,200,255 
+C 100,200,255 
 F 128,128,128
 
         1111111111111111111111111

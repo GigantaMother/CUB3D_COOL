@@ -45,35 +45,6 @@ int	ft_map_print(t_map *map)
 	return (0);
 }
 
-int key_hook_mouse(int x, int y, t_map *map)
-{
-	int x_t;
-	int y_t;
-
-	x_t = 0;
-	y_t = 0;
-
-	// mlx_mouse_get_pos(map->grap.win, &x_t, &y_t);
-	// if (x_t > map->spec.r.x/2)
-	// {
-	// 	write(1, "R\n", 2);
-	// 	key_hook_press_turn_r(map);
-	// 	ft_map_print(map);
-	// }
-	// else if (x_t < map->spec.r.x/2)
-	// {
-	// 	write(1, "L\n", 2);
-	// 	key_hook_press_turn_l(map);
-	// 	ft_map_print(map);
-	// }
-	// mlx_mouse_move(map->grap.win, map->spec.r.x/2, map->spec.r.y/2);
-
-	//printf("Hello");
-	//write(1, "Hello\n", 6);
-	//printf("x= %d y= %d\n", x, y);
-	return (1);
-}
-
 int	main_graphics(t_map *map)
 {
 	if (init_grap(map) == 0)
