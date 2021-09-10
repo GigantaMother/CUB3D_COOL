@@ -61,15 +61,17 @@ void	skip_symbols(char *str, int *i, char symbol)
 		*i = *i + 1;
 }
 
-// char	**ft_free(char **tab, size_t i)
-// {
-// 	while (i--)
-// 	{
-// 		if (!tab[i] || !*tab[i])
-// 			break ;
-// 		free(tab[i]);
-// 		tab[i] = NULL;
-// 	}
-// 	free(*tab);
-// 	return (NULL);
-// }
+// вывод строки в нужное место
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	if (s == NULL)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}	
+}

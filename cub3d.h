@@ -14,6 +14,7 @@
 # define SO 1
 # define NO 0
 # define EA 3
+
 // перечисление для цветов
 enum e_color {
 	White = 16777215,
@@ -27,6 +28,7 @@ enum e_color {
 	Aqua = 65535
 };
 
+// перечисление для кнопок
 enum e_button {
 	Esc = 53,
 	Up = 13,
@@ -38,6 +40,7 @@ enum e_button {
 	M = 46,
 	F = 3
 };
+
 // структура для координат чего либо(целые числа)
 typedef struct s_coord
 {
@@ -88,6 +91,7 @@ typedef struct s_spec
 	t_color	c;
 }t_spec;
 
+// структура для основного алгоритма
 typedef struct s_lodev
 {
 	double	posX;
@@ -103,6 +107,7 @@ typedef struct s_lodev
 
 }	t_lodev;
 
+// структура для текстур
 typedef struct s_text
 {
 	int		sprites_width;
@@ -140,6 +145,7 @@ typedef struct s_button
 	int	turn_left;
 }t_button;
 
+// структура для мини карты
 typedef struct s_mini_map
 {
 	int	color_wall;
@@ -150,6 +156,7 @@ typedef struct s_mini_map
 	int	cell;
 }t_mini_map;
 
+// структура для обработки данных
 typedef struct s_print_data
 {
 	double	cameraX;
@@ -176,7 +183,7 @@ typedef struct s_print_data
 	int		texX;
 }t_print_data;
 
-// структура для карты
+// основная структура
 typedef struct s_map
 {
 	int			fd;
@@ -195,6 +202,7 @@ typedef struct s_map
 	t_lodev		lodev;
 }t_map;
 
+void	ft_putstr_fd(char *s, int fd);
 void	key_hook_press_turn_r(t_map *map);
 void	key_hook_press_turn_l(t_map *map);
 void	ft_check_copy(char *line, char **way, int len);
@@ -205,11 +213,11 @@ void	move_side(t_map *map, int flag, double *x, double *y);
 void	change_player_position(t_map *map, double row, double col);
 int		key_hook_press(int keycode, t_map *map);
 int		key_hook_repress(int keycode, t_map *map);
+
 //  функции из файла grap_main.c
 void	ft_mini_map(t_map *map);
 void	init_text(t_map *map);
 int		main_graphics(t_map *map);
-//void	verLine_text(t_map *map, int x, int drawStart, int drawEnd);
 void	init_mini_map(t_map *map);
 void	init_player(t_map *map);
 
@@ -243,9 +251,13 @@ void	calculate_img2(t_print_data *vel, t_map *map);
 void	calculate_img3(t_print_data *vel, t_map *map);
 void	calculate_img4(t_print_data *vel, t_map *map);
 void	calculate_img5(t_print_data *vel, t_map *map);
+
 //-------------------------------------------------------------
+//-----------------parcer--------------------------------------
 //-------------------------------------------------------------
-//-------------------------------------------------------------
+// функции из файла check_border.c (2)
+int		check_border(t_map map);
+
 // функции из файла init.c (4)
 void	init_t_map(t_map *map);
 void	init_t_coord(t_coord *coord);
@@ -263,9 +275,8 @@ int		check_ident(t_spec *spec, int fd);
 
 // функции из файла check_spec_line.c (5)
 int		check_ident_line_R(t_spec *spec, char *line);
-//-------------------------------------------------------------------------
 int		check_id_line(int *flag, int *texture, char *line, char **way);
-//-------------------------------------------------------------------------
+
 // функции из файла check_spec_color.c (3)
 int		check_ident_line_color(int *flag, t_color *color, char *line);
 
@@ -274,20 +285,15 @@ int		ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	*ft_memcpy(void *dst, const void *src, int start, size_t n);
 void	skip_symbols(char *str, int *i, char symbol);
-//char	**ft_free(char **tab, size_t i);
 
 // функции из файла check_map.c (4)
 int		check_map(t_map *map);
 int		check_map_symbol(char c);
-
-// функции из файла check_border.c (2)
-int		check_border(t_map map);
 
 //  функции из файла error.c (5)
 int		error(int e);
 
 //  функции из файла print.c (3)
 void	print_mod(t_map map, int mod);
-//void	verLine(t_map *map, int x, int drawStart, int drawEnd, int color);
 
 #endif
