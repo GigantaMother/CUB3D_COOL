@@ -202,98 +202,102 @@ typedef struct s_map
 	t_lodev		lodev;
 }t_map;
 
-void	ft_putstr_fd(char *s, int fd);
-void	key_hook_press_turn_r(t_map *map);
-void	key_hook_press_turn_l(t_map *map);
-void	ft_check_copy(char *line, char **way, int len);
-int		key_hook_close(int keycode, t_map *map);
-int		ft_map_print(t_map *map);
-void	move_forward(t_map *map, int flag, double *x, double *y);
-void	move_side(t_map *map, int flag, double *x, double *y);
-void	change_player_position(t_map *map, double row, double col);
-int		key_hook_press(int keycode, t_map *map);
-int		key_hook_repress(int keycode, t_map *map);
-
-//  функции из файла grap_main.c
-void	ft_mini_map(t_map *map);
-void	init_text(t_map *map);
-int		main_graphics(t_map *map);
-void	init_mini_map(t_map *map);
-void	init_player(t_map *map);
-
-//  функции из файла grap_utilits.c
-int		rgb(int t, int r, int g, int b);
-void	my_mlx_pixel_put(t_grap *map, int x, int y, int color);
-void	square_print(t_map *map, t_coord start, t_coord size, int color);
-int		min(int x, int y);
-
-//  функции из файла grap_init.c
-int		init_grap(t_map *map);
-void	init_buttom(t_button *button);
-
-//  функции из файла grap_my_test.c
-void	print_help(t_map *map);
-int		map_print(t_map *map);
-
-// функции из файла grap_main_loop_utils.c
-int		char_in_str(char cr, char *str);
-int		numOfText(int side, int stepY, int stepX);
-int		it_is_not_wall(t_map *map, double row, double col);
-
-// функции из файла grap_move.c
-void	change_player_position(t_map *map, double row, double col);
-void	move_forward(t_map *map, int flag, double *x, double *y);
-void	move_side(t_map *map, int flag, double *x, double *y);
-
-// функции из файла grap_calculate_img.c
-void	calculate_img1(t_print_data *vel, t_map *map, int x);
-void	calculate_img2(t_print_data *vel, t_map *map);
-void	calculate_img3(t_print_data *vel, t_map *map);
-void	calculate_img4(t_print_data *vel, t_map *map);
-void	calculate_img5(t_print_data *vel, t_map *map);
-
 //-------------------------------------------------------------
 //-----------------parcer--------------------------------------
 //-------------------------------------------------------------
+
 // функции из файла check_border.c (2)
 int		check_border(t_map map);
+
+// функции из файла check_file.c (3)
+int		main_parser(int argc, char **argv, t_map *map);
+int		check_open_file(char *name);
+
+// функции из файла check_map.c (4)
+int		check_map(t_map *map);
+int		check_map_symbol(char c);
+
+// функции из файла check_spec_color.c (3)
+int		check_ident_line_color(int *flag, t_color *color, char *line);
+
+// функции из файла check_spec_line.c (5)
+int		check_ident_line_R(t_spec *spec, char *line);
+int		check_id_line(int *flag, int *texture, char *line, char **way);
+
+// функции из файла check_spec.c (5)
+int		check_ident(t_spec *spec, int fd);
+
+// функции из файла init_map.c (5)
+int		init_map(t_map *map, char *name);
+void	ft_check_copy(char *line, char **way, int len);
 
 // функции из файла init.c (4)
 void	init_t_map(t_map *map);
 void	init_t_coord(t_coord *coord);
 void	init_t_color(t_color *color);
 
-// функции из файла init_map.c (5)
-int		init_map(t_map *map, char *name);
-
-// функции из файла check_file.c (3)
-int		main_parser(int argc, char **argv, t_map *map);
-int		check_open_file(char *name);
-
-// функции из файла check_spec.c (4)
-int		check_ident(t_spec *spec, int fd);
-
-// функции из файла check_spec_line.c (5)
-int		check_ident_line_R(t_spec *spec, char *line);
-int		check_id_line(int *flag, int *texture, char *line, char **way);
-
-// функции из файла check_spec_color.c (3)
-int		check_ident_line_color(int *flag, t_color *color, char *line);
-
-// функции из файла utilits.c (4)
+// функции из файла utilits.c (5)
 int		ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	*ft_memcpy(void *dst, const void *src, int start, size_t n);
 void	skip_symbols(char *str, int *i, char symbol);
+void	ft_putstr_fd(char *s, int fd);
 
-// функции из файла check_map.c (4)
-int		check_map(t_map *map);
-int		check_map_symbol(char c);
+//  функции из файла print.c (3)
+void	print_mod(t_map map, int mod);
 
 //  функции из файла error.c (5)
 int		error(int e);
 
-//  функции из файла print.c (3)
-void	print_mod(t_map map, int mod);
+//-------------------------------------------------------------
+//-----------------graphics------------------------------------
+//-------------------------------------------------------------
+
+// функции из файла grap_calculate_img.c (5)
+void	calculate_img1(t_print_data *vel, t_map *map, int x);
+void	calculate_img2(t_print_data *vel, t_map *map);
+void	calculate_img3(t_print_data *vel, t_map *map);
+void	calculate_img4(t_print_data *vel, t_map *map);
+void	calculate_img5(t_print_data *vel, t_map *map);
+
+// функции из файла grap_init_player.c (4)
+void	init_player(t_map *map);
+int		min(int x, int y);
+
+//  функции из файла grap_init.c (4)
+int		init_grap(t_map *map);
+void	init_buttom(t_button *button);
+void	init_mini_map(t_map *map);
+void	init_text(t_map *map);
+
+// функции из файла grap_key_help.c(2)
+int		key_hook_repress(int keycode, t_map *map);
+int		key_hook_close(int keycode, t_map *map);
+
+// функции из файла grap_key.c (5)
+int		key_hook_press(int keycode, t_map *map);
+
+// функции из файла grap_main_loop_utils.c (3)
+int		char_in_str(char cr, char *str);
+int		numOfText(int side, int stepY, int stepX);
+int		it_is_not_wall(t_map *map, double row, double col);
+
+//  функции из файла grap_main.c (3)
+void	display_game(t_print_data *vel, t_map *map, int x);
+int		ft_map_print(t_map *map);
+int		main_graphics(t_map *map);
+
+// функции из файла grap_minimap.c (4)
+void	ft_mini_map(t_map *map);
+
+// функции из файла grap_move.c (3)
+void	change_player_position(t_map *map, double row, double col);
+void	move_forward(t_map *map, int flag, double *x, double *y);
+void	move_side(t_map *map, int flag, double *x, double *y);
+
+// функции из файла  grap_utilits.c (3)
+int		rgb(int t, int r, int g, int b);
+void	my_mlx_pixel_put(t_grap *map, int x, int y, int color);
+void	square_print(t_map *map, t_coord start, t_coord size, int color);
 
 #endif

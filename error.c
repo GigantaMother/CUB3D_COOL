@@ -67,9 +67,11 @@ re-initialization of color\n", 2);
 	else if (e == 18)
 		ft_putstr_fd("Color is incomplete\n", 2);
 	else if (e == 19)
-		ft_putstr_fd("There should be no comma after the last color parameter\n", 2);
+		ft_putstr_fd("There should be no comma after the last color \
+parameter\n", 2);
 	else if (e == 20)
-		ft_putstr_fd("Incorrect print mode was transferred during printing\n", 2);
+		ft_putstr_fd("Incorrect print mode was transferred during \
+printing\n", 2);
 }
 
 static void	error_21_30(int e)
@@ -87,7 +89,8 @@ static void	error_21_30(int e)
 	else if (e == 26)
 		ft_putstr_fd("The map is split\n", 2);
 	else if (e == 27)
-		ft_putstr_fd("There was not enough memory for the required number of lines\n", 2);
+		ft_putstr_fd("There was not enough memory for the required \
+number of lines\n", 2);
 	else if (e == 28)
 		ft_putstr_fd("There was not enough memory for one of the lines\n", 2);
 	else if (e == 29)

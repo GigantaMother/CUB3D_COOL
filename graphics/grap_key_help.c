@@ -21,6 +21,6 @@ int	key_hook_close(int keycode, t_map *map)
 {
 	(void)map;
 	(void)keycode;
-	printf("exit be ESC\n");
+	printf("exit\n");
 	exit (0);
 }

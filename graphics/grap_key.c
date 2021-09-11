@@ -2,6 +2,8 @@
 
 static void	key_hook_press_take(int keycode, t_map *map);
 static void	key_hook_press_take_minimap(int keycode, t_map *map);
+static void	key_hook_press_turn_r(t_map *map);
+static void	key_hook_press_turn_l(t_map *map);
 
 int	key_hook_press(int keycode, t_map *map)
 {
@@ -36,7 +38,7 @@ static void	key_hook_press_take(int keycode, t_map *map)
 {
 	if (keycode == Esc)
 	{
-		printf("Exit from ESC\n");
+		printf("Exit\n");
 		mlx_destroy_window(map->grap.mlx, map->grap.win);
 		exit (0);
 	}
@@ -74,7 +76,7 @@ static void	key_hook_press_take_minimap(int keycode, t_map *map)
 	}
 }
 
-void	key_hook_press_turn_r(t_map *map)
+static void	key_hook_press_turn_r(t_map *map)
 {
 	double	oldDirX;
 	double	oldPlaneX;
@@ -94,7 +96,7 @@ void	key_hook_press_turn_r(t_map *map)
 	}
 }
 
-void	key_hook_press_turn_l(t_map *map)
+static void	key_hook_press_turn_l(t_map *map)
 {
 	double	oldDirX;
 	double	oldPlaneX;

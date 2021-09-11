@@ -13,17 +13,17 @@ void	init_t_map(t_map *map)
 	init_t_spec(&map->spec);
 }
 
-// минимальное разрешение экрана 300 x 300
-// максимальное разрешение экрана 1500 x 1500
+// установить минимальное разрешение экрана
+// установить максимальное разрешение экрана
 static void	init_t_spec(t_spec *spec)
 {
 	spec->count_line = 0;
 	spec->flag_r = 0;
 	init_t_coord(&spec->r);
-	spec->r_min.x = 300;
-	spec->r_min.y = 300;
-	spec->r_max.x = 1500;
-	spec->r_max.y = 1500;
+	spec->r_min.x = 200;
+	spec->r_min.y = 200;
+	spec->r_max.x = 2000;
+	spec->r_max.y = 2000;
 	spec->flag_no = 0;
 	spec->no = -1;
 	spec->flag_so = 0;
