@@ -1,4 +1,4 @@
-# CUB3D_COOL
+# Cub3d
 
 My first RayCaster with miniLibX
 
